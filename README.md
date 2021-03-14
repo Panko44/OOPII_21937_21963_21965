@@ -1,1 +1,11 @@
-# OOPII_21937_21963_21965
+# Oriented Programming II
+
+## Java Project ##
+
+------------------------------
+
+### Panagiotis Kolliopoulos: it21937 ###
+
+### Athanasios Ntelis: it21963 ###
+
+### Rafail Ntymenos: it21965 ###
