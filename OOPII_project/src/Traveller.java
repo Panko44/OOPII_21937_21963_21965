@@ -1,8 +1,8 @@
 
 public abstract class Traveller {
 
-	private int[] vectorRepresentations = new int[10];
-	private int[] geodesicVectorRepresentations = new int[10];
+	private int[] termsVectorRepresentations = new int[10];
+	private int[] geodesicVectorRepresentations = new int[2];
 	
 	// constructors
 	
@@ -18,7 +18,7 @@ public abstract class Traveller {
 	}
 	
 	public void setGeodesicVectorRepresentations(int[] geodesicVectorRepresentations) {
-		geodesicVectorRepresentations = geodesicVectorRepresentations;
+		this.geodesicVectorRepresentations = geodesicVectorRepresentations;
 	}
 	
 	// getters 
