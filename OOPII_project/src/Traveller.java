@@ -2,12 +2,12 @@
 public abstract class Traveller {
 
 	private int[] vectorRepresentations = new int[10];
-	private int[] GeodesicVectorRepresentations = new int[10];
+	private int[] geodesicVectorRepresentations = new int[10];
 	
 	// constructors
 	
-	public Traveller(int[] vectorRepresentations , int[] GeodesicVectorRepresentations) {
-		this.GeodesicVectorRepresentations = GeodesicVectorRepresentations;
+	public Traveller(int[] vectorRepresentations , int[] geodesicVectorRepresentations) {
+		this.geodesicVectorRepresentations = geodesicVectorRepresentations;
 		this.vectorRepresentations = vectorRepresentations;
 	}
 	
@@ -18,7 +18,7 @@ public abstract class Traveller {
 	}
 	
 	public void setGeodesicVectorRepresentations(int[] geodesicVectorRepresentations) {
-		GeodesicVectorRepresentations = geodesicVectorRepresentations;
+		geodesicVectorRepresentations = geodesicVectorRepresentations;
 	}
 	
 	// getters 
@@ -28,7 +28,7 @@ public abstract class Traveller {
 	}
 	
 	public int[] getGeodesicVectorRepresentations() {
-		return GeodesicVectorRepresentations;
+		return geodesicVectorRepresentations;
 	}
 	
 	public abstract int calculate_similarity(City x);
