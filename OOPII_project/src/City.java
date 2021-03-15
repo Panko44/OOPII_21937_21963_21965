@@ -1,31 +1,31 @@
 
 public class City {
 
-	private int[] termsVector = new int[10];
-	private int[] geodesicVector = new int[2];
+	private int[] cityTermsVector = new int[10];
+	private int[] cityGeodesicVector = new int[2];
 
     //constructor
-	public City(int[] termsVector, int[] geodesicVector) {
-		this.termsVector = termsVector;
-		this.geodesicVector = geodesicVector;
+	public City(int[] cityTermsVector, int[] cityGeodesicVector) {
+		this.cityTermsVector = cityTermsVector;
+		this.cityGeodesicVector = cityGeodesicVector;
 	}
 
     //setters
-	public void setTerms_vector(int[] termsVector) {
-		this.terms_vector = terms_vector;
+	public void setCityTermsVector(int[] cityTermsVector) {
+		this.cityTermsVector = cityTermsVector;
 	}
 
-	public void setGeodesicVector(int[] geodesicVector) {
-		this.geodesicVector = geodesicVector;
+	public void setCityGeodesicVector(int[] cityGeodesicVector) {
+		this.cityGeodesicVector = cityGeodesicVector;
 	}
 
     //getters
-	public int[] getGeodesicVector() {
-		return geodesicVector;
+	public int[] getCityTermsVector() {
+		return cityTermsVector;
 	}
 	
-	public int[] getTermsVector() {
-		return termsVector;
+	public int[] getCityGeodesicVector() {
+		return cityGeodesicVector;
 	}
 		
 }
