@@ -1,5 +1,5 @@
 
-public class City {
+public abstract class City {
 
 	private int[] cityTermsVector = new int[10];
 	private double[] cityGeodesicVector = new double[2];
@@ -27,5 +27,5 @@ public class City {
 	public double[] getCityGeodesicVector() {
 		return cityGeodesicVector;
 	}
-		
+	
 }
