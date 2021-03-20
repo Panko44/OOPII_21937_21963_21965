@@ -2,10 +2,10 @@
 public class City {
 
 	private int[] cityTermsVector = new int[10];
-	private int[] cityGeodesicVector = new int[2];
+	private double[] cityGeodesicVector = new double[2];
 
     //constructor
-	public City(int[] cityTermsVector, int[] cityGeodesicVector) {
+	public City(int[] cityTermsVector, double[] cityGeodesicVector) {
 		this.cityTermsVector = cityTermsVector;
 		this.cityGeodesicVector = cityGeodesicVector;
 	}
@@ -15,7 +15,7 @@ public class City {
 		this.cityTermsVector = cityTermsVector;
 	}
 
-	public void setCityGeodesicVector(int[] cityGeodesicVector) {
+	public void setCityGeodesicVector(double[] cityGeodesicVector) {
 		this.cityGeodesicVector = cityGeodesicVector;
 	}
 
@@ -24,7 +24,7 @@ public class City {
 		return cityTermsVector;
 	}
 	
-	public int[] getCityGeodesicVector() {
+	public double[] getCityGeodesicVector() {
 		return cityGeodesicVector;
 	}
 		
