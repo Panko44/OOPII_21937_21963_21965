@@ -30,8 +30,7 @@ public class MiddleTraveller extends Traveller {
 	
 	//calculates traveller & city geodesic vectors similarity
 	private double  similarityGeodesicVector(double[] travellerGeodesicVector,double[] cityGeodesicVector) {
-		log2(2 /2-(distance(travellerGeodesicVector[0],travellerGeodesicVector[1],cityGeodesicVector[0],cityGeodesicVector[1],"K") / maxDist));
-		return 0;
+		return log2(2 /2-(distance(travellerGeodesicVector[0],travellerGeodesicVector[1],cityGeodesicVector[0],cityGeodesicVector[1],"K") / maxDist));
 				
 	}
 	
