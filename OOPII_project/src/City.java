@@ -1,5 +1,5 @@
 
-public abstract class City {
+public class City {
 
 	private int[] cityTermsVector = new int[10];
 	private double[] cityGeodesicVector = new double[2];
@@ -11,7 +11,7 @@ public abstract class City {
 	}
 	
 	public City() {
-		
+	
 	}
 
     //setters

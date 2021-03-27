@@ -57,14 +57,26 @@ public abstract class Traveller {
 	public City compareCities(ArrayList<City> citiesToCompare) {
 		
 		double maxSimilarity = -1;
-		City maxSimilarutyCity = new City();
+		City maxSimilarityCity = new City();
 		for(City city: citiesToCompare) {
 			 if(calculateSimilarity(city) >= maxSimilarity) {
 				 maxSimilarity = calculateSimilarity(city);
-				 
+				 maxSimilarityCity = city;
 			 }
 		}
-		
+		return maxSimilarityCity;
+	}
+	
+	public City compareCities(ArrayList<City> citiesToCompare, int number) {
+//		double maxSimilarity = -1;
+//		City maxSimilarityCity = new City();
+//		for(City city: citiesToCompare) {
+//			 if(calculateSimilarity(city) >= maxSimilarity) {
+//				 maxSimilarity = calculateSimilarity(city);
+//				 maxSimilarityCity = city;
+//			 }
+//		}
+//		return maxSimilarityCity;
 	}
 	
 }
