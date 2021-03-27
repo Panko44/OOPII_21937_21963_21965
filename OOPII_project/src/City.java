@@ -9,6 +9,10 @@ public abstract class City {
 		this.cityTermsVector = cityTermsVector;
 		this.cityGeodesicVector = cityGeodesicVector;
 	}
+	
+	public City() {
+		
+	}
 
     //setters
 	public void setCityTermsVector(int[] cityTermsVector) {

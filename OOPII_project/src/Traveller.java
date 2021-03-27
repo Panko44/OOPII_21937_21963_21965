@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class Traveller {
 
 	private int[] travellerTermsVector = new int[10];
 	private double[] travellerGeodesicVector = new double[2];
 	
+	private ArrayList<City> citiesToCompare= new ArrayList<>();
 	
 	//constructor
 	public Traveller(int[] travellerTermsVector, double[] travellerGeodesicVector) {
@@ -49,6 +52,19 @@ public abstract class Traveller {
 			}
 			return (dist);
 		}
+	}
+	
+	public City compareCities(ArrayList<City> citiesToCompare) {
+		
+		double maxSimilarity = -1;
+		City maxSimilarutyCity = new City();
+		for(City city: citiesToCompare) {
+			 if(calculateSimilarity(city) >= maxSimilarity) {
+				 maxSimilarity = calculateSimilarity(city);
+				 
+			 }
+		}
+		
 	}
 	
 }
