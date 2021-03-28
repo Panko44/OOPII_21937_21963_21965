@@ -42,7 +42,9 @@ public class MiddleTraveller extends Traveller {
 	
 	@Override
 	public double calculateSimilarity(City city) {
-		return p * similarityTermsVector(getTravellerTermsVector(), city.getCityTermsVector()) + (1-p) * similarityGeodesicVector(getTravellerGeodesicVector(), city.getCityGeodesicVector());
+		double similarity = p * similarityTermsVector(getTravellerTermsVector(), city.getCityTermsVector()) + (1-p) * similarityGeodesicVector(getTravellerGeodesicVector(), city.getCityGeodesicVector());
+		city.setSimilarity(similarity);
+		return similarity;
 	}
 
 }

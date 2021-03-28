@@ -35,7 +35,9 @@ public class YoungTraveller extends Traveller {
 	
 	@Override
 	public double calculateSimilarity(City city) {
-		return p * similarityTermsVector(city) + (1-p) * similarityGeodesicVector(getTravellerGeodesicVector(), city.getCityGeodesicVector());
+		double similarity = p * similarityTermsVector(city) + (1-p) * similarityGeodesicVector(getTravellerGeodesicVector(), city.getCityGeodesicVector());
+		city.setSimilarity(similarity);
+		return similarity;
 	}
 
 }

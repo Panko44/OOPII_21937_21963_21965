@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public abstract class Traveller {
 
 	private int[] travellerTermsVector = new int[10];
 	private double[] travellerGeodesicVector = new double[2];
-	
-	private ArrayList<City> citiesToCompare= new ArrayList<>();
+	private ArrayList<City> citiesToCompare = new ArrayList<City>();
 	
 	//constructor
 	public Traveller(int[] travellerTermsVector, double[] travellerGeodesicVector) {
@@ -59,24 +59,22 @@ public abstract class Traveller {
 		double maxSimilarity = -1;
 		City maxSimilarityCity = new City();
 		for(City city: citiesToCompare) {
-			 if(calculateSimilarity(city) >= maxSimilarity) {
+			if(calculateSimilarity(city) >= maxSimilarity) {
 				 maxSimilarity = calculateSimilarity(city);
 				 maxSimilarityCity = city;
-			 }
+			}
 		}
 		return maxSimilarityCity;
 	}
 	
-	public City compareCities(ArrayList<City> citiesToCompare, int number) {
-//		double maxSimilarity = -1;
-//		City maxSimilarityCity = new City();
-//		for(City city: citiesToCompare) {
-//			 if(calculateSimilarity(city) >= maxSimilarity) {
-//				 maxSimilarity = calculateSimilarity(city);
-//				 maxSimilarityCity = city;
-//			 }
-//		}
-//		return maxSimilarityCity;
+	public ArrayList<City> compareCities(ArrayList<City> citiesToCompare, int returnNum) {
+		
+		Collections.sort(citiesToCompare);
+		ArrayList<City> comparedCities = new ArrayList<City>(returnNum);
+		for(int i = 0; i < returnNum; i++) {
+			comparedCities.add(citiesToCompare.get(i));
+		}
+		return comparedCities;
 	}
 	
 }
