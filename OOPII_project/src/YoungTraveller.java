@@ -40,4 +40,6 @@ public class YoungTraveller extends Traveller {
 		return similarity;
 	}
 
+	
+
 }

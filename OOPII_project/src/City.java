@@ -40,6 +40,8 @@ public class City implements Comparable<City> {
     public double getSimilarity() {
 		return similarity;
 	}
+    
+    
 
 	@Override
 	public int compareTo(City arg0) {

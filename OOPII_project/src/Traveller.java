@@ -14,6 +14,10 @@ public abstract class Traveller {
 		this.travellerGeodesicVector = travellerGeodesicVector;
 	}
 
+	public Traveller() {
+		
+	}
+	
 	//setters
 	public void setTravellerTermsVector(int[] travellerTermsVector) {
 		this.travellerTermsVector = travellerTermsVector;
@@ -34,6 +38,8 @@ public abstract class Traveller {
 	}
 
 	public abstract double calculateSimilarity(City city);
+	
+	
 
 	//calculates the distance between two points(using their latitude & longitude)
 	protected static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {

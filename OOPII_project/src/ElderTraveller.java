@@ -49,4 +49,5 @@ public class ElderTraveller extends Traveller {
 		return similarity;
 	}
 
+	
 }
