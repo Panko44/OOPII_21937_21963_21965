@@ -1,3 +1,4 @@
+import java.lang.Math;
 
 public class YoungTraveller extends Traveller {
 
@@ -5,18 +6,17 @@ public class YoungTraveller extends Traveller {
 	private int maxDist = 15317; // Distance from Athens to Sydney
 	
 	//constructor
-	public YoungTraveller(int[] travellerTermsVector, double[] travellerGeodesicVector) {
-		super(travellerTermsVector, travellerGeodesicVector);
-		// TODO Auto-generated constructor stub
+	public YoungTraveller(String name, int age, int[] travellerTermsVector, double[] travellerGeodesicVector) {
+		super(name, age, travellerTermsVector, travellerGeodesicVector);
 	}
 
 	//calculates traveller & city terms vectors similarity
 	private double similarityTermsVector(City x) {
-		int sum = 0;
+		double sum = 0;
 		int[] user = getTravellerTermsVector();
 		int[] city = x.getCityTermsVector();
 		for(int i = 0; i < 10; i++) {
-			sum += (user[i] - city[i])^2;
+			sum += Math.pow((user[i] - city[i]), 2);
 		}
 		return 1 / (1 + Math.sqrt(sum));
 	}
@@ -39,7 +39,5 @@ public class YoungTraveller extends Traveller {
 		city.setSimilarity(similarity);
 		return similarity;
 	}
-
-	
 
 }

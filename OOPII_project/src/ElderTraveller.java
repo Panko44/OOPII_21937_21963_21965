@@ -5,9 +5,8 @@ public class ElderTraveller extends Traveller {
 	private int maxDist = 15317; // Distance from Athens to Sydney
 	
 	//constructor
-	public ElderTraveller(int[] travellerTermsVector, double[] travellerGeodesicVector) {
-		super(travellerTermsVector, travellerGeodesicVector);
-		// TODO Auto-generated constructor stub
+	public ElderTraveller(String name, int age, int[] travellerTermsVector, double[] travellerGeodesicVector) {
+		super(name, age, travellerTermsVector, travellerGeodesicVector);
 	}
 
 	//calculates traveller & city terms vectors similarity

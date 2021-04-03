@@ -4,12 +4,16 @@ import java.util.Collections;
 
 public abstract class Traveller {
 
+	private String name;
+	private int age;
 	private int[] travellerTermsVector = new int[10];
 	private double[] travellerGeodesicVector = new double[2];
 	private ArrayList<City> citiesToCompare = new ArrayList<City>();
 	
 	//constructor
-	public Traveller(int[] travellerTermsVector, double[] travellerGeodesicVector) {
+	public Traveller(String name, int age, int[] travellerTermsVector, double[] travellerGeodesicVector) {
+		this.name = name;
+		this.age = age;
 		this.travellerTermsVector = travellerTermsVector;
 		this.travellerGeodesicVector = travellerGeodesicVector;
 	}
@@ -17,7 +21,7 @@ public abstract class Traveller {
 	public Traveller() {
 		
 	}
-	
+
 	//setters
 	public void setTravellerTermsVector(int[] travellerTermsVector) {
 		this.travellerTermsVector = travellerTermsVector;
@@ -27,7 +31,14 @@ public abstract class Traveller {
 		this.travellerGeodesicVector = travellerGeodesicVector;
 	}
 
-	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+		
 	//getters
 	public int[] getTravellerTermsVector() {
 		return travellerTermsVector;
@@ -37,10 +48,17 @@ public abstract class Traveller {
 		return travellerGeodesicVector;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+	
+	
 	public abstract double calculateSimilarity(City city);
 	
-	
-
 	//calculates the distance between two points(using their latitude & longitude)
 	protected static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 		if ((lat1 == lat2) && (lon1 == lon2)) {
@@ -81,6 +99,11 @@ public abstract class Traveller {
 			comparedCities.add(citiesToCompare.get(i));
 		}
 		return comparedCities;
+	}
+	
+	@Override
+	public String toString() {
+		return "Traveller: name=" + getName() + ", age=" + getAge();
 	}
 	
 }
