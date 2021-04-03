@@ -46,5 +46,4 @@ public class MiddleTraveller extends Traveller {
 		return similarity;
 	}
 	
-
 }
