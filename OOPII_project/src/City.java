@@ -1,9 +1,17 @@
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+import org.apache.http.client.ClientProtocolException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 import exception.WikipediaNoArcticleException;
 import exception.WikipediaNoCityException;
 import weather.OpenWeatherMap;
@@ -65,10 +73,26 @@ public class City implements Comparable<City> {
     
 	public void setCityValues(String city, String country, String appid) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, JsonParseException, JsonMappingException {
 	    
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ClientConfig config = new DefaultClientConfig();
+		Client client = Client.create(config);
+		WebResource service = client.resource(UriBuilder.fromUri("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+city+"&format=json&formatversion=2").build());       
+		String json= service.accept(MediaType.APPLICATION_JSON).get(String.class); 
+		if (json.contains("pageid")) {
+			MediaWiki mediaWiki_obj =  mapper.readValue(json, MediaWiki.class);
+			String cityArticle= mediaWiki_obj.getQuery().getPages().get(0).getExtract();
+			int[] term = new int[10];
+			for(int i = 0; i < 10 ; i++) {
+				term[i] = countCriterionfCity(cityArticle, cityCriterions[i]);
+			}
+			setCityTermsVector(term);		
+		} else throw new WikipediaNoArcticleException(city);
+		
 		//fills City's Geodesic Vector with data from OpenWeather
 	    double[] tmpCityGeodesicVector = new double[2];
 		
-		ObjectMapper mapper = new ObjectMapper(); 
+ 
 		OpenWeatherMap weather_obj = mapper.readValue(new URL("http://api.openweathermap.org/data/2.5/weather?q="+city+","+country+"&APPID="+appid+""), OpenWeatherMap.class);
 		
 	    tmpCityGeodesicVector[0] = weather_obj.getCoord().getLat();
@@ -76,17 +100,10 @@ public class City implements Comparable<City> {
 		
 		setCityGeodesicVector(tmpCityGeodesicVector);
 	
-		//fills City's Terms Vector with data from Wikipedia
-		MediaWiki mediaWiki_obj =  mapper.readValue(new URL("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+city+"&format=json&formatversion=2"),MediaWiki.class);
-		String cityArticle = mediaWiki_obj.getQuery().getPages().get(0).getExtract();
-		int[] term = new int[10];
-		for(int i = 0; i < 10 ; i++) {
-			term[i] = countCriterionfCity(cityArticle, cityCriterions[i]);
-		}
-		setCityTermsVector(term);
-		
-	}
     
+	}
+		
+		
 	public static int countCriterionfCity(String cityArticle, String criterion) {
 		cityArticle=cityArticle.toLowerCase();
 		int index = cityArticle.indexOf(criterion);

@@ -12,9 +12,14 @@ public class App {
 		
 		String appid = "113cbc692911b95ae581a5ae7ab261c6";
 		
+		try {
 		City city1 = new City();
-		city1.setCityValues("Athens", "gr", appid);
+		city1.setCityValues("Adfgdtn", "gr", appid);
 		cityList.add(city1);
+		} catch(WikipediaNoArcticleException e) {
+			System.out.println(e.getMessage());		
+		}
+
 		
 		City city2 = new City();
 		city2.setCityValues("Berlin","de",appid);
@@ -26,6 +31,7 @@ public class App {
 		
 		int[] travellerTermsVector1 = {0, 5, 7, 3, 1, 0, 9, 10, 4, 7};
 		double[] travellerGeodesicVector1 = {37.955894, 23.702099};
+		
 		YoungTraveller traveller1 = new YoungTraveller("George", 20, travellerTermsVector1, travellerGeodesicVector1);
 		travellerList.add(traveller1);
 		
@@ -38,11 +44,10 @@ public class App {
 		double[] travellerGeodesicVector3 = {40.629269, 22.947412};
 		ElderTraveller traveller3 = new ElderTraveller("Michail", 80, travellerTermsVector2, travellerGeodesicVector2);
 		travellerList.add(traveller3);
+	
 		
-		System.out.println(travellerList.toString());
-			
 		Ticket ticket = new Ticket();
-		ticket.freeTicket(city1, travellerList);
+		ticket.freeTicket(city2, travellerList);
 	}
 
 }
