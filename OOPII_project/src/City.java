@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import org.apache.http.client.ClientProtocolException;
@@ -99,7 +101,7 @@ public class City implements Comparable<City> {
 	    tmpCityGeodesicVector[1] = weather_obj.getCoord().getLon();
 		
 		setCityGeodesicVector(tmpCityGeodesicVector);
-	
+		setName(city);
     
 	}
 		
@@ -116,6 +118,10 @@ public class City implements Comparable<City> {
 		return count;
 	}
 	
+	public boolean searchCity(String cityName , HashMap<String,City> cityHashMap) {
+		return cityHashMap.containsKey(cityName);
+	}
+	
 	@Override
 	public int compareTo(City arg0) {
 		if(this.similarity > arg0.similarity) {
@@ -129,7 +135,7 @@ public class City implements Comparable<City> {
 
 	@Override
 	public String toString() {
-		return "City [name=" + name + "]";
+		return "City [name=" + getName() + "\t:similarity:" + getSimilarity()+"]";
 	}
 	
 }

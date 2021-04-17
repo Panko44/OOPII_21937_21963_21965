@@ -1,19 +1,23 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 public abstract class Traveller {
 
 	private String name;
 	private int age;
+	private long timestamp;
+	private String visit;
 	private int[] travellerTermsVector = new int[10];
 	private double[] travellerGeodesicVector = new double[2];
 	private ArrayList<City> citiesToCompare = new ArrayList<City>();
 	
 	//constructor
-	public Traveller(String name, int age, int[] travellerTermsVector, double[] travellerGeodesicVector) {
+	public Traveller(String name, int age, long timestamp, int[] travellerTermsVector, double[] travellerGeodesicVector) {
 		this.name = name;
 		this.age = age;
+		this.timestamp = timestamp;
 		this.travellerTermsVector = travellerTermsVector;
 		this.travellerGeodesicVector = travellerGeodesicVector;
 	}
@@ -23,6 +27,15 @@ public abstract class Traveller {
 	}
 
 	//setters
+	
+	public void setVisit(String visit) {
+		this.visit = visit;
+	}
+	
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 	public void setTravellerTermsVector(int[] travellerTermsVector) {
 		this.travellerTermsVector = travellerTermsVector;
 	}
@@ -40,6 +53,15 @@ public abstract class Traveller {
 	}
 		
 	//getters
+	
+	public String getVisit() {
+		return visit;
+	}
+	
+	public long getTimestamp() {
+		return timestamp;
+	}
+	
 	public int[] getTravellerTermsVector() {
 		return travellerTermsVector;
 	}
@@ -100,6 +122,8 @@ public abstract class Traveller {
 		}
 		return comparedCities;
 	}
+	
+	
 	
 	@Override
 	public String toString() {
