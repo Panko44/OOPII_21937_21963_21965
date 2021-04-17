@@ -20,18 +20,23 @@ public class App {
 		YoungTraveller traveller1 = new YoungTraveller("George", 20, date1.getTime(), travellerTermsVector1, travellerGeodesicVector1);
 		travellerList.add(traveller1);
 		
+		
 		int[] travellerTermsVector2 = {10, 2, 6, 3, 1, 8, 3, 7, 0, 10};
 		double[] travellerGeodesicVector2 = {40.629269, 22.947412};
 		Date date2 = new Date();
-		MiddleTraveller traveller2 = new MiddleTraveller("Maria", 35, date2.getTime(), travellerTermsVector2, travellerGeodesicVector2);
+		MiddleTraveller traveller2 = new MiddleTraveller("George", 35, date2.getTime(), travellerTermsVector2, travellerGeodesicVector2);
 		travellerList.add(traveller2);
 		
+		Thread.sleep(1000);
 		
 		int[] travellerTermsVector3 = {9, 8, 4, 6, 3, 2, 1, 10, 5, 7};
 		double[] travellerGeodesicVector3 = {40.629269, 22.947412};
 		Date date3 = new Date();
 		ElderTraveller traveller3 = new ElderTraveller("Michail", 80, date3.getTime(), travellerTermsVector3, travellerGeodesicVector3);
 		travellerList.add(traveller3);
+		traveller3.sortTravellers(travellerList);
+		
+		System.out.println(traveller2.getTimestamp()+"\t"+traveller3.getTimestamp());
 		
 		try {
 		City city1 = new City();

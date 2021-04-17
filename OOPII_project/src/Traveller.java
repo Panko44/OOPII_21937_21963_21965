@@ -2,8 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Hashtable;
 
-public abstract class Traveller {
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+public abstract class Traveller implements Comparable<Traveller>  {
 
 	private String name;
 	private int age;
@@ -123,7 +126,54 @@ public abstract class Traveller {
 		return comparedCities;
 	}
 	
+//	public void sortTravellers(ArrayList<Traveller> travellerList) {
+//		// Hashtable<String,Traveller> travellerHashtable = new Hashtable<>();
+//		Collections.sort(travellerList);
+//		
+//		Iterator i = (Iterator) travellerList.iterator();
+//		
+//		for(Traveller traveller: travellerList) {
+//			
+//			if(i.equals(traveller)) {
+//				System.out.println("12");
+//			}
+//			
+//		}
+//		
+//	}
 	
+	public void sortTravellers(ArrayList<Traveller> travellerList) {
+		Hashtable<String,Traveller> travellerHashtable = new Hashtable<>();
+		Collections.reverse(travellerList);
+		
+		for(Traveller traveller : travellerList) {
+			travellerHashtable.put(traveller.getName(), traveller);
+		}
+		
+		for(String name: travellerHashtable.keySet()) {
+			String key = name.toString();
+			String value = travellerHashtable.get(name).toString();
+		    System.out.println(key + " " + value);
+		}
+	}
+	
+	public boolean equals(Traveller t) {
+	    if(this.getName().equals(t.getName())) {
+	    	return true;
+	    }
+	    return false;
+	}
+	
+	@Override
+	public int compareTo(Traveller arg0) {
+		if(this.timestamp < arg0.timestamp) {
+			return -1;
+		} else if(this.timestamp > arg0.timestamp) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 	
 	@Override
 	public String toString() {
