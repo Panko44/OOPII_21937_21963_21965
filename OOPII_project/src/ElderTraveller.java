@@ -47,6 +47,5 @@ public class ElderTraveller extends Traveller {
 		city.setSimilarity(similarity);
 		return similarity;
 	}
-
 	
 }

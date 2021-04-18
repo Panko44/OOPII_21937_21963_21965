@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
 import exception.WikipediaNoArcticleException;
 import exception.WikipediaNoCityException;
 
@@ -17,7 +16,7 @@ public class App {
 		int[] travellerTermsVector1 = {0, 5, 7, 3, 1, 0, 9, 10, 4, 7};
 		double[] travellerGeodesicVector1 = {37.955894, 23.702099};
 		Date date1 = new Date();
-		YoungTraveller traveller1 = new YoungTraveller("George", 20, date1.getTime(), travellerTermsVector1, travellerGeodesicVector1);
+		YoungTraveller traveller1 = new YoungTraveller("Aris", 20, date1.getTime(), travellerTermsVector1, travellerGeodesicVector1);
 		travellerList.add(traveller1);
 		
 		
@@ -34,10 +33,33 @@ public class App {
 		Date date3 = new Date();
 		ElderTraveller traveller3 = new ElderTraveller("Michail", 80, date3.getTime(), travellerTermsVector3, travellerGeodesicVector3);
 		travellerList.add(traveller3);
-		traveller3.sortTravellers(travellerList);
 		
-		System.out.println(traveller2.getTimestamp()+"\t"+traveller3.getTimestamp());
+		Thread.sleep(1003);
 		
+		int[] travellerTermsVector4 = {9, 8, 4, 10, 3, 2, 1, 1, 5, 7};
+		double[] travellerGeodesicVector4 = {40.629269, 22.947412};
+		Date date4 = new Date();
+		ElderTraveller traveller4 = new ElderTraveller("Nikos", 70, date4.getTime(), travellerTermsVector4, travellerGeodesicVector4);
+		travellerList.add(traveller4);
+		
+		Thread.sleep(2000);
+		
+		int[] travellerTermsVector5 = {10, 5, 8, 3, 1, 7, 9, 0, 4, 7};
+		double[] travellerGeodesicVector5 = {37.955894, 23.702099};
+		Date date5 = new Date();
+		YoungTraveller traveller5 = new YoungTraveller("Kostas", 19, date5.getTime(), travellerTermsVector5, travellerGeodesicVector5);
+		travellerList.add(traveller5);
+		
+		Thread.sleep(1002);
+		
+		int[] travellerTermsVector6 = {10, 2, 6, 3, 1, 8, 3, 7, 0, 10};
+		double[] travellerGeodesicVector6 = {40.629269, 22.947412};
+		Date date6 = new Date();
+		MiddleTraveller traveller6 = new MiddleTraveller("George", 40, date6.getTime(), travellerTermsVector6, travellerGeodesicVector6);
+		travellerList.add(traveller6);
+		
+		traveller6.sortTravellers(travellerList);
+	
 		try {
 		City city1 = new City();
 		city1.setCityValues("Adfgdtn", "gr", appid);
@@ -58,14 +80,14 @@ public class App {
 		for(String name: cityHashMap.keySet()) {
 			String key = name.toString();
 			String value = cityHashMap.get(name).toString();
-		    System.out.println(key + " " + value);
+		    System.out.println(key + " ~~~~ " + value);
 		}
 		
 		City city4 = new City();
 		if(city4.searchCity("Berlin", cityHashMap) == false) {
 			city4.setCityValues("Berlin","de",appid);
 			cityHashMap.put(city4.getName(),city4);
-			System.out.println("1");
+			System.out.println("Error");
 		}
 		
 		

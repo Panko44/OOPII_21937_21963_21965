@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import org.apache.http.client.ClientProtocolException;
@@ -77,6 +76,7 @@ public class City implements Comparable<City> {
 	    
 		ObjectMapper mapper = new ObjectMapper();
 		
+		//fills City's Terms Vector with data from Wikipedia
 		ClientConfig config = new DefaultClientConfig();
 		Client client = Client.create(config);
 		WebResource service = client.resource(UriBuilder.fromUri("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+city+"&format=json&formatversion=2").build());       
@@ -93,8 +93,7 @@ public class City implements Comparable<City> {
 		
 		//fills City's Geodesic Vector with data from OpenWeather
 	    double[] tmpCityGeodesicVector = new double[2];
-		
- 
+		 
 		OpenWeatherMap weather_obj = mapper.readValue(new URL("http://api.openweathermap.org/data/2.5/weather?q="+city+","+country+"&APPID="+appid+""), OpenWeatherMap.class);
 		
 	    tmpCityGeodesicVector[0] = weather_obj.getCoord().getLat();
@@ -102,10 +101,9 @@ public class City implements Comparable<City> {
 		
 		setCityGeodesicVector(tmpCityGeodesicVector);
 		setName(city);
-    
+		
 	}
-		
-		
+	
 	public static int countCriterionfCity(String cityArticle, String criterion) {
 		cityArticle=cityArticle.toLowerCase();
 		int index = cityArticle.indexOf(criterion);
@@ -135,7 +133,7 @@ public class City implements Comparable<City> {
 
 	@Override
 	public String toString() {
-		return "City [name=" + getName() + "\t:similarity:" + getSimilarity()+"]";
+		return "City [name: " + getName() + ",  similarity: " + getSimilarity() + "]";
 	}
 	
 }

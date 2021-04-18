@@ -1,10 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Hashtable;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
+import java.util.LinkedHashMap;
 
 public abstract class Traveller implements Comparable<Traveller>  {
 
@@ -30,15 +26,6 @@ public abstract class Traveller implements Comparable<Traveller>  {
 	}
 
 	//setters
-	
-	public void setVisit(String visit) {
-		this.visit = visit;
-	}
-	
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
-	
 	public void setTravellerTermsVector(int[] travellerTermsVector) {
 		this.travellerTermsVector = travellerTermsVector;
 	}
@@ -54,17 +41,16 @@ public abstract class Traveller implements Comparable<Traveller>  {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	
+	public void setVisit(String visit) {
+		this.visit = visit;
+	}
+	
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
 		
 	//getters
-	
-	public String getVisit() {
-		return visit;
-	}
-	
-	public long getTimestamp() {
-		return timestamp;
-	}
-	
 	public int[] getTravellerTermsVector() {
 		return travellerTermsVector;
 	}
@@ -79,6 +65,14 @@ public abstract class Traveller implements Comparable<Traveller>  {
 
 	public int getAge() {
 		return age;
+	}
+	
+	public String getVisit() {
+		return visit;
+	}
+	
+	public long getTimestamp() {
+		return timestamp;
 	}
 	
 	
@@ -126,42 +120,22 @@ public abstract class Traveller implements Comparable<Traveller>  {
 		return comparedCities;
 	}
 	
-//	public void sortTravellers(ArrayList<Traveller> travellerList) {
-//		// Hashtable<String,Traveller> travellerHashtable = new Hashtable<>();
-//		Collections.sort(travellerList);
-//		
-//		Iterator i = (Iterator) travellerList.iterator();
-//		
-//		for(Traveller traveller: travellerList) {
-//			
-//			if(i.equals(traveller)) {
-//				System.out.println("12");
-//			}
-//			
-//		}
-//		
-//	}
-	
 	public void sortTravellers(ArrayList<Traveller> travellerList) {
-		Hashtable<String,Traveller> travellerHashtable = new Hashtable<>();
-		Collections.reverse(travellerList);
+		
+		LinkedHashMap<String,Traveller> travellerLinkedHashMap = new LinkedHashMap<>();
+		
+		System.out.println("Before sorting ::" + travellerList.toString());
+		
+		Collections.sort(travellerList);
+		
+		System.out.println("\nAfter sorting ::" + travellerList.toString() + "\n\n\n");
 		
 		for(Traveller traveller : travellerList) {
-			travellerHashtable.put(traveller.getName(), traveller);
+			travellerLinkedHashMap.put(traveller.getName(), traveller);
 		}
 		
-		for(String name: travellerHashtable.keySet()) {
-			String key = name.toString();
-			String value = travellerHashtable.get(name).toString();
-		    System.out.println(key + " " + value);
-		}
-	}
-	
-	public boolean equals(Traveller t) {
-	    if(this.getName().equals(t.getName())) {
-	    	return true;
-	    }
-	    return false;
+		System.out.println("\n\ntravellerLinkedHashMap ::" + travellerLinkedHashMap.toString() + "\n\n\n");
+		
 	}
 	
 	@Override
@@ -177,7 +151,7 @@ public abstract class Traveller implements Comparable<Traveller>  {
 	
 	@Override
 	public String toString() {
-		return "Traveller: name=" + getName() + ", age=" + getAge();
+		return "Traveller [name: " + getName() + ",  age: " + getAge() + "]";
 	}
 	
 }
