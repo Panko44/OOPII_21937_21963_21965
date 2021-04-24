@@ -6,16 +6,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/commons-lang-2.6-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/commons-lang-2.6-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/httpclient-4.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/jackson-annotations-2.9.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/jackson-core-2.9.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/jackson-databind-2.9.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/javax.ws.rs.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/jersey-client-1.19.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/jersey-core-1.19.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rafail Ntymenos/Desktop/githubFile/OOPII_21937_21963_21965/OOPII_project/jars/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/commons-lang-2.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/commons-lang-2.6-sources.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/httpclient-4.0.3.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/jackson-annotations-2.9.8.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/jackson-core-2.9.8.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/jackson-databind-2.9.8.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/javax.ws.rs.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/jersey-client-1.19.1.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/jersey-core-1.19.1.jar"/>
+	<classpathentry kind="lib" path="/home/thanos/prog/J/OOPII_21937_21963_21965/OOPII_project/jars/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
