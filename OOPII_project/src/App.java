@@ -1,11 +1,12 @@
 import java.io.IOException;
-import java.security.KeyStore.Entry;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import java.util.Map;
 
 import exception.WikipediaNoArcticleException;
 import exception.WikipediaNoCityException;
@@ -22,10 +23,10 @@ public class App {
 		
 		JacksonFile json = new JacksonFile();
 		
-		try {
-
-			travellerList = json.readJSON();
-			
+//		try {
+//
+//			travellerList = json.readJSON();
+//			
 //			int[] travellerTermsVector1 = {0, 5, 7, 3, 1, 0, 9, 10, 4, 7};
 //			double[] travellerGeodesicVector1 = {37.955894, 23.702099};
 //			Date date1 = new Date();
@@ -74,16 +75,16 @@ public class App {
 //			traveller6.sortTravellers(travellerList);
 //		
 //			json.writeJSON(travellerList);
-			
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-	    } catch (JsonMappingException e) {
-	    	e.printStackTrace();
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    }
-		
-		System.out.println(travellerList.toString());
+//			
+//		} catch (JsonParseException e) {
+//			e.printStackTrace();
+//	    } catch (JsonMappingException e) {
+//	    	e.printStackTrace();
+//	    } catch (IOException e) {
+//	    	e.printStackTrace();
+//	    }
+//		
+//		System.out.println(travellerList.toString());
 		
 		try {
 		City city1 = new City();
@@ -121,7 +122,7 @@ public class App {
 
 		dbObject.makeJDBCConnection();
 		
-		for (java.util.Map.Entry<String, City> entry : cityHashMap.entrySet()) {
+		for (Map.Entry<String, City> entry : cityHashMap.entrySet()) {
 			dbObject.addDataToDB(entry.getKey(),entry.getValue().getCityTermsVector(),entry.getValue().getCityGeodesicVector());
     	}
 		
