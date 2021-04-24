@@ -1,8 +1,9 @@
 import java.io.IOException;
+import java.security.KeyStore.Entry;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -11,11 +12,13 @@ import exception.WikipediaNoCityException;
 
 public class App {
 	
-	public static void main(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException {
+	public static void main(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException {
 		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
 		HashMap<String,City> cityHashMap = new HashMap<String,City>();
 		
 		String appid = "116427f6e7a5e1872aa0d6ac10c3e2d8";
+		
+		OracleDBService dbObject = new OracleDBService();
 		
 		JacksonFile json = new JacksonFile();
 		
@@ -114,6 +117,16 @@ public class App {
 		
 		Ticket ticket = new Ticket();
 		ticket.freeTicket(city2, travellerList);
+		
+
+		dbObject.makeJDBCConnection();
+		
+		for (java.util.Map.Entry<String, City> entry : cityHashMap.entrySet()) {
+			dbObject.addDataToDB(entry.getKey(),entry.getValue().getCityTermsVector(),entry.getValue().getCityGeodesicVector());
+    	}
+		
+		dbObject.ReadData();
+		
 	}
 
 }
