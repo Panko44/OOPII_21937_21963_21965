@@ -5,10 +5,12 @@ public class YoungTraveller extends Traveller {
 	private double p = 0.80;
 	private int maxDist = 15317; // Distance from Athens to Sydney
 	
-	//constructor
+	//constructors
 	public YoungTraveller(String name, int age, long timestamp, int[] travellerTermsVector, double[] travellerGeodesicVector) {
 		super(name, age, timestamp, travellerTermsVector, travellerGeodesicVector);
 	}
+	
+	public YoungTraveller() {}
 
 	//calculates traveller & city terms vectors similarity
 	private double similarityTermsVector(City x) {

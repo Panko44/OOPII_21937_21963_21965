@@ -26,16 +26,14 @@ public class City implements Comparable<City> {
 	private double[] cityGeodesicVector = new double[2];
 	private double similarity;
 	
-    //constructor
+    //constructors
 	public City(String name, int[] cityTermsVector, double[] cityGeodesicVector) {
 		this.name  = name;
 		this.cityTermsVector = cityTermsVector;
 		this.cityGeodesicVector = cityGeodesicVector;
 	}
 	
-	public City() {
-	
-	}
+	public City() {}
 
 	//setters
 	public void setCityTermsVector(int[] cityTermsVector) {

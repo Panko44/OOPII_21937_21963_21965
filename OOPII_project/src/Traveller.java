@@ -12,7 +12,7 @@ public abstract class Traveller implements Comparable<Traveller>  {
 	private double[] travellerGeodesicVector = new double[2];
 	private ArrayList<City> citiesToCompare = new ArrayList<City>();
 	
-	//constructor
+	//constructors
 	public Traveller(String name, int age, long timestamp, int[] travellerTermsVector, double[] travellerGeodesicVector) {
 		this.name = name;
 		this.age = age;
@@ -21,9 +21,7 @@ public abstract class Traveller implements Comparable<Traveller>  {
 		this.travellerGeodesicVector = travellerGeodesicVector;
 	}
 
-	public Traveller() {
-		
-	}
+	public Traveller() {}
 
 	//setters
 	public void setTravellerTermsVector(int[] travellerTermsVector) {
