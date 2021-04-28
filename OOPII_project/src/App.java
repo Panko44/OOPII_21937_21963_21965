@@ -3,9 +3,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import java.util.Map;
+import java.util.Random;
 import exception.WikipediaNoArcticleException;
 import exception.WikipediaNoCityException;
 
@@ -14,16 +15,18 @@ public class App {
 	public static void main(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException {
 		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
 		HashMap<String, City> cityHashMap = new HashMap<String, City>();
+		App runApp = new App();
 
 		String appid = "116427f6e7a5e1872aa0d6ac10c3e2d8";
 
 		JacksonFile json = new JacksonFile();
 
-		//travellers
+		// travellers
 		try {
 
 			travellerList = json.readJSON();
 
+//			runApp.createTravellers(travellerList);
 			int[] travellerTermsVector1 = { 0, 5, 7, 3, 1, 0, 9, 10, 4, 7 };
 			double[] travellerGeodesicVector1 = { 37.955894, 23.702099 };
 			Date date1 = new Date();
@@ -77,6 +80,8 @@ public class App {
 			traveller6.sortTravellers(travellerList);
 
 			json.writeJSON(travellerList);
+			
+			json.writeJSON(travellerList);
 
 		} catch (JsonParseException e) {
 			e.printStackTrace();
@@ -88,50 +93,149 @@ public class App {
 
 		System.out.println(travellerList.toString());
 
-		//cities
-		try {
-			City city1 = new City();
-			city1.setCityValues("Adfgdtn", "gr", appid);
-			cityHashMap.put(city1.getName(), city1);
-		} catch (WikipediaNoArcticleException e) {
-			System.out.println(e.getMessage());
+		// cities
+		cityHashMap = runApp.createCities(cityHashMap);
+		
+		for(Traveller traveller: travellerList) {
+			for (String name : cityHashMap.keySet()) {
+				String key = name.toString();
+				traveller.calculateSimilarity(cityHashMap.get(key));
+			}
 		}
-
-		City city2 = new City();
-		city2.setCityValues("Berlin", "de", appid);
-		cityHashMap.put("Berlin", city2);
-
-		City city3 = new City();
-		city3.setCityValues("Naples", "it", appid);
-		cityHashMap.put("Naples", city3);
-
+		
 		for (String name : cityHashMap.keySet()) {
 			String key = name.toString();
 			String value = cityHashMap.get(name).toString();
-			System.out.println(key + " ~~~~ " + value);
+			System.out.println("Name: " + key + " Data: " + value);
+		}
+		
+//		for(Traveller traveller: ) {
+//			
+//		}
+
+//		// free ticket
+//		Ticket ticket = new Ticket();
+//		ticket.freeTicket(city2, travellerList);
+
+	}
+	
+	public void createTravellers(ArrayList<Traveller> travellerList) throws InterruptedException, JsonGenerationException, JsonMappingException, IOException {
+		String[] travellersNamesArray = new String[] { "George", "Nikos", "Petros", "Christos", "Aris", "Panos",
+				"Maria", "Dimitra", "Sofia", "Andreas", "Pavlos", "Katerina", "Tasos", "Eleni", "Anna" }; // 15 names
+		double maxLatitude = 90.00;
+		double minLatitude = -90.00;
+		double maxLongitude = 180.00;
+		double minLongitude = -180.00;
+		int namesArrayPointer = 0;
+		for (int i = 20; i < 25; i++) {
+			int[] tmpTermsVector = new int[10];
+			double[] tmpGeodesicVector = new double[2];
+			YoungTraveller traveller = new YoungTraveller();
+			traveller.setAge(i - 5);
+			traveller.setName(travellersNamesArray[namesArrayPointer]);
+			Date date = new Date();
+			traveller.setTimestamp(date.getTime());
+			for (int k = 0; k < 10; k++) {
+				Random rand = new Random();
+				tmpTermsVector[k] = rand.nextInt(11);
+			}
+			traveller.setTravellerTermsVector(tmpTermsVector);
+			tmpGeodesicVector[0] = Math.random() * (maxLatitude - minLatitude) + minLatitude;
+			tmpGeodesicVector[1] = Math.random() * (maxLongitude - minLongitude) + minLongitude;
+			traveller.setTravellerGeodesicVector(tmpGeodesicVector);
+			travellerList.add(traveller);
+			Thread.sleep(i);
+
+			int[] tmpTermsVector2 = new int[10];
+			double[] tmpGeodesicVector2 = new double[2];
+			MiddleTraveller traveller2 = new MiddleTraveller();
+			traveller2.setAge(i + 20);
+			traveller2.setName(travellersNamesArray[namesArrayPointer + 1]);
+			Date date2 = new Date();
+			traveller2.setTimestamp(date2.getTime());
+			for (int k = 0; k < 10; k++) {
+				Random rand = new Random();
+				tmpTermsVector2[k] = rand.nextInt(11);
+			}
+			traveller2.setTravellerTermsVector(tmpTermsVector2);
+			tmpGeodesicVector2[0] = Math.random() * (maxLatitude - minLatitude) + minLatitude;
+			tmpGeodesicVector2[1] = Math.random() * (maxLongitude - minLongitude) + minLongitude;
+			traveller2.setTravellerGeodesicVector(tmpGeodesicVector2);
+			travellerList.add(traveller2);
+			Thread.sleep(i);
+
+			int[] tmpTermsVector3 = new int[10];
+			double[] tmpGeodesicVector3 = new double[2];
+			ElderTraveller traveller3 = new ElderTraveller();
+			traveller3.setAge(i + 40);
+			traveller3.setName(travellersNamesArray[namesArrayPointer + 2]);
+			Date date3 = new Date();
+			traveller3.setTimestamp(date3.getTime());
+			for (int k = 0; k < 10; k++) {
+				Random rand = new Random();
+				tmpTermsVector3[k] = rand.nextInt(11);
+			}
+			traveller3.setTravellerTermsVector(tmpTermsVector3);
+			tmpGeodesicVector3[0] = Math.random() * (maxLatitude - minLatitude) + minLatitude;
+			tmpGeodesicVector3[1] = Math.random() * (maxLongitude - minLongitude) + minLongitude;
+			traveller3.setTravellerGeodesicVector(tmpGeodesicVector3);
+			travellerList.add(traveller3);
+			Thread.sleep(i);
+
+			namesArrayPointer += 3;
 		}
 
-		City city4 = new City();
-		if (city4.searchCity("Berlin", cityHashMap) == false) {
-			city4.setCityValues("Berlin", "de", appid);
-			cityHashMap.put(city4.getName(), city4);
-			System.out.println("Error");
+		// Same traveller enters 2nd time
+		int[] tmpTermsVector4 = new int[10];
+		double[] tmpGeodesicVector4 = new double[2];
+		MiddleTraveller traveller4 = new MiddleTraveller();
+		traveller4.setName("Nikos");
+		traveller4.setAge(40);
+		Date date4 = new Date();
+		traveller4.setTimestamp(date4.getTime());
+		for (int k = 0; k < 10; k++) {
+			Random rand = new Random();
+			tmpTermsVector4[k] = rand.nextInt(11);
 		}
+		traveller4.setTravellerTermsVector(tmpTermsVector4);
+		tmpGeodesicVector4[0] = Math.random() * (maxLatitude - minLatitude) + minLatitude;
+		tmpGeodesicVector4[1] = Math.random() * (maxLongitude - minLongitude) + minLongitude;
+		traveller4.setTravellerGeodesicVector(tmpGeodesicVector4);
+		travellerList.add(traveller4);
 
-		//free ticket
-		Ticket ticket = new Ticket();
-		ticket.freeTicket(city2, travellerList);
-
-		//oracleDB connection
+	}
+	
+	public HashMap<String, City> createCities(HashMap<String, City> cityHashMap) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException {
+		// oracleDB connection
 		OracleDBService dbObject = new OracleDBService();
 		dbObject.makeJDBCConnection();
+		
+		cityHashMap = dbObject.ReadData();
+		
+//		for (String name : cityHashMap.keySet()) {
+//			String key = name.toString();
+//			String value = cityHashMap.get(name).toString();
+//			System.out.println("1. Name: " + key + " Data: " + value);
+//		}
+		
+		String[] citiesNamesArray = new String[] {"Paris", "London", "Athens", "Moscow", "Corfu", "Berlin", "Naples"};
+		String[] countryNamesArray = new String[] {"fr", "uk", "gr", "ru", "gr", "de", "it"};
+		String appid = "116427f6e7a5e1872aa0d6ac10c3e2d8";
+		for(int i = 0; i < citiesNamesArray.length; i++) {
+			try {
+				City city = new City();
+				if (city.searchCity(citiesNamesArray[i], cityHashMap) == false) {
+					city.setCityValues(citiesNamesArray[i], countryNamesArray[i], appid);
+					cityHashMap.put(city.getName(), city);
+					dbObject.addDataToDB(city.getName(), city.getCityTermsVector(), city.getCityGeodesicVector());
+				}
 
-		for (Map.Entry<String, City> entry : cityHashMap.entrySet()) {
-			dbObject.addDataToDB(entry.getKey(), entry.getValue().getCityTermsVector(), entry.getValue().getCityGeodesicVector());
+			} catch (WikipediaNoArcticleException e) {
+				System.out.println(e.getMessage());
+			}
 		}
-
-		dbObject.ReadData();
-
+		
+		return cityHashMap;
 	}
 
 }

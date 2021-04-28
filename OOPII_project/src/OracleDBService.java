@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class OracleDBService {
 
@@ -26,8 +27,8 @@ public class OracleDBService {
 		try {
 			// DriverManager: The basic service for managing a set of JDBC drivers. //We
 			// connect to a DBMS.
-			db_con_obj = DriverManager.getConnection("jdbc:oracle:thin:@oracle12c.hua.gr:1521:orcl", "username",
-					"password");// Returns a connection to the URL.
+			db_con_obj = DriverManager.getConnection("jdbc:oracle:thin:@oracle12c.hua.gr:1521:orcl", "it21963",
+					"IT21963");// Returns a connection to the URL.
 			// Attempts to establish a connection to the given database URL. The
 			// DriverManager attempts to select an appropriate driver from the set of
 			// registered JDBC drivers.
@@ -45,31 +46,38 @@ public class OracleDBService {
 
 	}
 
-	static void ReadData() throws SQLException {
+	static HashMap<String, City> ReadData() throws SQLException {
+		HashMap<String, City> cityHashMap = new HashMap<String, City>();
+		int[] cityTermsVector = new int[10];
+		double[] cityGeodesicVector = new double[2];
+		
 		db_prep_obj = db_con_obj.prepareStatement("select * from city");
 		ResultSet rs = db_prep_obj.executeQuery();
 
 		while (rs.next()) {
 			String cityName = rs.getString("cityName");
-			int criterion1 = rs.getInt("criterion1");
-			int criterion2 = rs.getInt("criterion2");
-			int criterion3 = rs.getInt("criterion3");
-			int criterion4 = rs.getInt("criterion4");
-			int criterion5 = rs.getInt("criterion5");
-			int criterion6 = rs.getInt("criterion6");
-			int criterion7 = rs.getInt("criterion7");
-			int criterion8 = rs.getInt("criterion8");
-			int criterion9 = rs.getInt("criterion9");
-			int criterion10 = rs.getInt("criterion10");
-			double latitude = rs.getDouble("latitude");
-			double longitude = rs.getDouble("longitude");
-			System.out.println("\nCity: " + cityName + "\ncriterion1:" + criterion1 + "\ncriterion2:" + criterion2
-					+ "\ncriterion3:" + criterion3 + "\ncriterion4:" + criterion4 + "\ncriterion5:" + criterion5
-					+ "\ncriterion6:" + criterion6 + "\ncriterion7:" + criterion7 + "\ncriterion8:" + criterion8
-					+ "\ncriterion9:" + criterion9 + "\ncriterion10:" + criterion10 + "\nlatitude:" + latitude
-					+ "\nlongitude:" + longitude);
-
+			cityTermsVector[0] = rs.getInt("criterion1");
+			cityTermsVector[1] = rs.getInt("criterion2");
+			cityTermsVector[2] = rs.getInt("criterion3");
+			cityTermsVector[3] = rs.getInt("criterion4");
+			cityTermsVector[4] = rs.getInt("criterion5");
+			cityTermsVector[5] = rs.getInt("criterion6");
+			cityTermsVector[6] = rs.getInt("criterion7");
+			cityTermsVector[7] = rs.getInt("criterion8");
+			cityTermsVector[8] = rs.getInt("criterion9");
+			cityTermsVector[9] = rs.getInt("criterion10");
+			cityGeodesicVector[0] = rs.getDouble("latitude");
+			cityGeodesicVector[1] = rs.getDouble("longitude");
+			
+			City city = new City();
+			city.setName(cityName);
+			city.setCityTermsVector(cityTermsVector);
+			city.setCityGeodesicVector(cityGeodesicVector);
+			
+			cityHashMap.put(cityName, city);
 		}
+		
+		return cityHashMap;
 	}
 
 	static void addDataToDB(String City, int[] cityTermsVector, double[] cityGeodesicVector) {
