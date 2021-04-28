@@ -13,14 +13,21 @@ public class YoungTraveller extends Traveller {
 	public YoungTraveller() {}
 
 	//calculates traveller & city terms vectors similarity
-	private double similarityTermsVector(City x) {
+	private double similarityTermsVector(int[] travellerTermsVector, int[] cityTermsVector) {
 		double sum = 0;
-		int[] user = getTravellerTermsVector();
-		int[] city = x.getCityTermsVector();
 		for(int i = 0; i < 10; i++) {
-			sum += Math.pow((user[i] - city[i]), 2);
+			sum += Math.pow((travellerTermsVector[i] - cityTermsVector[i]), 2);
 		}
-		return 1 / (1 + Math.sqrt(sum));
+		
+		if(sum < 0) {
+			return 0;
+		}
+		
+		if((1 + Math.sqrt(sum)) != 0) {
+			return 1 / (1 + Math.sqrt(sum));
+		}else{
+			return 0;
+		}
 	}
 	
 	//calculates traveller & city geodesic vectors similarity
@@ -37,7 +44,7 @@ public class YoungTraveller extends Traveller {
 	
 	@Override
 	public double calculateSimilarity(City city) {
-		double similarity = p * similarityTermsVector(city) + (1-p) * similarityGeodesicVector(getTravellerGeodesicVector(), city.getCityGeodesicVector());
+		double similarity = p * similarityTermsVector(getTravellerTermsVector(), city.getCityTermsVector()) + (1-p) * similarityGeodesicVector(getTravellerGeodesicVector(), city.getCityGeodesicVector());
 		city.setSimilarity(similarity);
 		return similarity;
 	}

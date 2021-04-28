@@ -27,8 +27,8 @@ public class OracleDBService {
 		try {
 			// DriverManager: The basic service for managing a set of JDBC drivers. //We
 			// connect to a DBMS.
-			db_con_obj = DriverManager.getConnection("jdbc:oracle:thin:@oracle12c.hua.gr:1521:orcl", "it21963",
-					"IT21963");// Returns a connection to the URL.
+			db_con_obj = DriverManager.getConnection("jdbc:oracle:thin:@oracle12c.hua.gr:1521:orcl", "username",
+					"code");// Returns a connection to the URL.
 			// Attempts to establish a connection to the given database URL. The
 			// DriverManager attempts to select an appropriate driver from the set of
 			// registered JDBC drivers.
@@ -48,13 +48,15 @@ public class OracleDBService {
 
 	static HashMap<String, City> ReadData() throws SQLException {
 		HashMap<String, City> cityHashMap = new HashMap<String, City>();
-		int[] cityTermsVector = new int[10];
-		double[] cityGeodesicVector = new double[2];
+//		int[] cityTermsVector = new int[10];
+//		double[] cityGeodesicVector = new double[2];
 		
 		db_prep_obj = db_con_obj.prepareStatement("select * from city");
 		ResultSet rs = db_prep_obj.executeQuery();
 
 		while (rs.next()) {
+			int[] cityTermsVector = new int[10];
+			double[] cityGeodesicVector = new double[2];
 			String cityName = rs.getString("cityName");
 			cityTermsVector[0] = rs.getInt("criterion1");
 			cityTermsVector[1] = rs.getInt("criterion2");

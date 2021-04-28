@@ -26,61 +26,8 @@ public class App {
 
 			travellerList = json.readJSON();
 
-//			runApp.createTravellers(travellerList);
-			int[] travellerTermsVector1 = { 0, 5, 7, 3, 1, 0, 9, 10, 4, 7 };
-			double[] travellerGeodesicVector1 = { 37.955894, 23.702099 };
-			Date date1 = new Date();
-			YoungTraveller traveller1 = new YoungTraveller("Aris", 20, date1.getTime(), travellerTermsVector1,
-					travellerGeodesicVector1);
-			travellerList.add(traveller1);
+			runApp.createTravellers(travellerList);
 
-			int[] travellerTermsVector2 = { 10, 2, 6, 3, 1, 8, 3, 7, 0, 10 };
-			double[] travellerGeodesicVector2 = { 40.629269, 22.947412 };
-			Date date2 = new Date();
-			MiddleTraveller traveller2 = new MiddleTraveller("George", 35, date2.getTime(), travellerTermsVector2,
-					travellerGeodesicVector2);
-			travellerList.add(traveller2);
-
-			Thread.sleep(1000);
-
-			int[] travellerTermsVector3 = { 9, 8, 4, 6, 3, 2, 1, 10, 5, 7 };
-			double[] travellerGeodesicVector3 = { 40.629269, 22.947412 };
-			Date date3 = new Date();
-			ElderTraveller traveller3 = new ElderTraveller("Michail", 80, date3.getTime(), travellerTermsVector3,
-					travellerGeodesicVector3);
-			travellerList.add(traveller3);
-
-			Thread.sleep(1003);
-
-			int[] travellerTermsVector4 = { 9, 8, 4, 10, 3, 2, 1, 1, 5, 7 };
-			double[] travellerGeodesicVector4 = { 40.629269, 22.947412 };
-			Date date4 = new Date();
-			ElderTraveller traveller4 = new ElderTraveller("Nikos", 70, date4.getTime(), travellerTermsVector4,
-					travellerGeodesicVector4);
-			travellerList.add(traveller4);
-
-			Thread.sleep(2000);
-
-			int[] travellerTermsVector5 = { 10, 5, 8, 3, 1, 7, 9, 0, 4, 7 };
-			double[] travellerGeodesicVector5 = { 37.955894, 23.702099 };
-			Date date5 = new Date();
-			YoungTraveller traveller5 = new YoungTraveller("Kostas", 19, date5.getTime(), travellerTermsVector5,
-					travellerGeodesicVector5);
-			travellerList.add(traveller5);
-
-			Thread.sleep(1002);
-
-			int[] travellerTermsVector6 = { 10, 2, 6, 3, 1, 8, 3, 7, 0, 10 };
-			double[] travellerGeodesicVector6 = { 40.629269, 22.947412 };
-			Date date6 = new Date();
-			MiddleTraveller traveller6 = new MiddleTraveller("George", 40, date6.getTime(), travellerTermsVector6,
-					travellerGeodesicVector6);
-			travellerList.add(traveller6);
-
-			traveller6.sortTravellers(travellerList);
-
-			json.writeJSON(travellerList);
-			
 			json.writeJSON(travellerList);
 
 		} catch (JsonParseException e) {
@@ -91,28 +38,46 @@ public class App {
 			e.printStackTrace();
 		}
 
-		System.out.println(travellerList.toString());
-
+		//print travellers
+		System.out.println("\n\nTRAVELLERS");
+		for(Traveller traveller: travellerList) {
+			System.out.print(traveller.toString());
+			for(int i = 0; i < 10; i++) {
+				System.out.print(", term[" + i + "]: " + traveller.getTravellerTermsVector()[i]);
+			}
+			System.out.print("\n");
+		}
+		
 		// cities
 		cityHashMap = runApp.createCities(cityHashMap);
 		
-		for(Traveller traveller: travellerList) {
-			for (String name : cityHashMap.keySet()) {
-				String key = name.toString();
-				traveller.calculateSimilarity(cityHashMap.get(key));
+		//print cities
+		System.out.println("\n\nCITIES");
+		for (City ct: cityHashMap.values()) {
+			System.out.print("Name:" + ct.getName() + ", Similarity:" + ct.getSimilarity());
+			for(int i = 0; i < 10; i++) {
+				System.out.print(", term[" + i + "]: " + ct.getCityTermsVector()[i]);
 			}
+			System.out.print("\n");
 		}
 		
-		for (String name : cityHashMap.keySet()) {
-			String key = name.toString();
-			String value = cityHashMap.get(name).toString();
-			System.out.println("Name: " + key + " Data: " + value);
+		
+		ArrayList<City> citiesToCompare = new ArrayList<City>(cityHashMap.values());
+		
+		City maxSimilarityCity = new City();
+		for(Traveller traveller: travellerList) {
+			maxSimilarityCity = traveller.compareCities(citiesToCompare);
+			traveller.setVisit(maxSimilarityCity.getName());
 		}
 		
-//		for(Traveller traveller: ) {
-//			
-//		}
-
+		//print travellers after visit
+		System.out.println("\n\nTRAVELLERS WITH VISIT");
+		for(Traveller traveller: travellerList) {
+			System.out.print(traveller.toString());
+			System.out.print(", visit: " + traveller.getVisit());
+			System.out.print("\n");
+		}
+		
 //		// free ticket
 //		Ticket ticket = new Ticket();
 //		ticket.freeTicket(city2, travellerList);
