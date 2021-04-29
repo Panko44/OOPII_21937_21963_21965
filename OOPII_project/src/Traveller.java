@@ -126,17 +126,13 @@ public abstract class Traveller implements Comparable<Traveller> {
 
 		LinkedHashMap<String, Traveller> travellerLinkedHashMap = new LinkedHashMap<>();
 
-		System.out.println("Before sorting ::" + travellerList.toString());
-
 		Collections.sort(travellerList);
-
-		System.out.println("\nAfter sorting ::" + travellerList.toString() + "\n\n\n");
 
 		for (Traveller traveller : travellerList) {
 			travellerLinkedHashMap.put(traveller.getName(), traveller);
 		}
 
-		System.out.println("\n\ntravellerLinkedHashMap ::" + travellerLinkedHashMap.toString() + "\n\n\n");
+		System.out.println("\nTravellers without duplicates " + travellerLinkedHashMap.toString());
 
 	}
 

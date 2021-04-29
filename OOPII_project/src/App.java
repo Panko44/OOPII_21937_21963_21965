@@ -64,11 +64,34 @@ public class App {
 		
 		ArrayList<City> citiesToCompare = new ArrayList<City>(cityHashMap.values());
 		
+//		ArrayList<City> citiesToCompare = new ArrayList<City>();
+//				
+//		for (City ct: cityHashMap.values()) {
+//			citiesToCompare.add(ct);
+//		}
+//		
+		
 		City maxSimilarityCity = new City();
 		for(Traveller traveller: travellerList) {
 			maxSimilarityCity = traveller.compareCities(citiesToCompare);
 			traveller.setVisit(maxSimilarityCity.getName());
 		}
+		
+		YoungTraveller trav = new YoungTraveller();
+		trav.sortTravellers(travellerList);
+				
+		System.out.println("\n\nCITIES WITH SIMILARITY");
+		for (City ct: cityHashMap.values()) {
+			System.out.print("Name:" + ct.getName() + ", Similarity:" + ct.getSimilarity());
+			for(int i = 0; i < 10; i++) {
+				System.out.print(", term[" + i + "]: " + ct.getCityTermsVector()[i]);
+			}
+			System.out.print("\n");
+			Ticket ticket = new Ticket();
+			ticket.freeTicket(ct, travellerList);
+		}
+
+		
 		
 		//print travellers after visit
 		System.out.println("\n\nTRAVELLERS WITH VISIT");
@@ -78,9 +101,13 @@ public class App {
 			System.out.print("\n");
 		}
 		
+//		System.out.println(cityHashMap.get(0).getName());
+		
 //		// free ticket
 //		Ticket ticket = new Ticket();
-//		ticket.freeTicket(city2, travellerList);
+//		ticket.freeTicket(cityHashMap.get(0), travellerList);
+		
+
 
 	}
 	

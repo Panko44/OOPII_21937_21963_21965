@@ -5,7 +5,7 @@ public class Ticket {
 	public void freeTicket(City bestCity, ArrayList<Traveller> users) {
 		double max = 0;
 		double tmp = -1;
-		Traveller t = null;
+		Traveller t = users.get(0);
 		for(Traveller pr1: users) {
 			tmp = pr1.calculateSimilarity(bestCity);
 			if(tmp >= max) {
@@ -13,7 +13,7 @@ public class Ticket {
 				t = pr1;
 			}
 		}
-		System.out.println(t);
+		System.out.println("Free ticket winner is :"+t);
 	}
 	
 }
