@@ -32,12 +32,5 @@ public class JacksonFile {
 			return emptyTravellersArrayList;
 		}
 	}
-
-//	 @SuppressWarnings("unchecked")
-//	 public ArrayList<Traveller> readJSON() throws JsonParseException, JsonMappingException, IOException{
-//		 ObjectMapper mapper = new ObjectMapper();
-//		 mapper.enableDefaultTyping();
-//		 AllTravellers travellersData = mapper.readValue(new File("travellerList.json"), AllTravellers.class);
-//		 return travellersData.getCollectionAllTravellers();
-//	 }
+	
 }

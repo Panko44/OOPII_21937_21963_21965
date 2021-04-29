@@ -21,7 +21,7 @@ public class App {
 
 		JacksonFile json = new JacksonFile();
 
-		// travellers
+		//Create Travellers examples
 		try {
 
 			travellerList = json.readJSON();
@@ -38,7 +38,7 @@ public class App {
 			e.printStackTrace();
 		}
 
-		//print travellers
+		//Print Travellers
 		System.out.println("\n\nTRAVELLERS");
 		for(Traveller traveller: travellerList) {
 			System.out.print(traveller.toString());
@@ -47,11 +47,12 @@ public class App {
 			}
 			System.out.print("\n");
 		}
+		System.out.print("\n\n");
 		
-		// cities
+		//Create Cities examples
 		cityHashMap = runApp.createCities(cityHashMap);
 		
-		//print cities
+		//Print Cities
 		System.out.println("\n\nCITIES");
 		for (City ct: cityHashMap.values()) {
 			System.out.print("Name:" + ct.getName() + ", Similarity:" + ct.getSimilarity());
@@ -61,15 +62,8 @@ public class App {
 			System.out.print("\n");
 		}
 		
-		
+		//Calculate similarity and set Traveller's visit
 		ArrayList<City> citiesToCompare = new ArrayList<City>(cityHashMap.values());
-		
-//		ArrayList<City> citiesToCompare = new ArrayList<City>();
-//				
-//		for (City ct: cityHashMap.values()) {
-//			citiesToCompare.add(ct);
-//		}
-//		
 		
 		City maxSimilarityCity = new City();
 		for(Traveller traveller: travellerList) {
@@ -77,6 +71,7 @@ public class App {
 			traveller.setVisit(maxSimilarityCity.getName());
 		}
 		
+		//Print every Traveller once(first time entered)
 		YoungTraveller trav = new YoungTraveller();
 		trav.sortTravellers(travellerList);
 				
@@ -87,13 +82,9 @@ public class App {
 				System.out.print(", term[" + i + "]: " + ct.getCityTermsVector()[i]);
 			}
 			System.out.print("\n");
-			Ticket ticket = new Ticket();
-			ticket.freeTicket(ct, travellerList);
 		}
-
 		
-		
-		//print travellers after visit
+		//Print Travellers after visit
 		System.out.println("\n\nTRAVELLERS WITH VISIT");
 		for(Traveller traveller: travellerList) {
 			System.out.print(traveller.toString());
@@ -101,14 +92,10 @@ public class App {
 			System.out.print("\n");
 		}
 		
-//		System.out.println(cityHashMap.get(0).getName());
+		//Free Ticket
+		Ticket ticket = new Ticket();
+		ticket.freeTicket(cityHashMap.get("Moscow"), travellerList);
 		
-//		// free ticket
-//		Ticket ticket = new Ticket();
-//		ticket.freeTicket(cityHashMap.get(0), travellerList);
-		
-
-
 	}
 	
 	public void createTravellers(ArrayList<Traveller> travellerList) throws InterruptedException, JsonGenerationException, JsonMappingException, IOException {
@@ -177,7 +164,7 @@ public class App {
 			namesArrayPointer += 3;
 		}
 
-		// Same traveller enters 2nd time
+		//Same Traveller enters 2nd time
 		int[] tmpTermsVector4 = new int[10];
 		double[] tmpGeodesicVector4 = new double[2];
 		MiddleTraveller traveller4 = new MiddleTraveller();
@@ -203,12 +190,6 @@ public class App {
 		dbObject.makeJDBCConnection();
 		
 		cityHashMap = dbObject.ReadData();
-		
-//		for (String name : cityHashMap.keySet()) {
-//			String key = name.toString();
-//			String value = cityHashMap.get(name).toString();
-//			System.out.println("1. Name: " + key + " Data: " + value);
-//		}
 		
 		String[] citiesNamesArray = new String[] {"Paris", "London", "Athens", "Moscow", "Corfu", "Berlin", "Naples"};
 		String[] countryNamesArray = new String[] {"fr", "uk", "gr", "ru", "gr", "de", "it"};

@@ -13,7 +13,8 @@ public class Ticket {
 				t = pr1;
 			}
 		}
-		System.out.println("Free ticket winner is :"+t);
+		
+		System.out.println("\n\nFree ticket winner to traveller in " + bestCity.getName() + " is: " + t);
 	}
 	
 }
