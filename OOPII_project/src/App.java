@@ -11,8 +11,13 @@ import exception.WikipediaNoArcticleException;
 import exception.WikipediaNoCityException;
 
 public class App {
+	
+	public static void main(String[] args) {
+		GUIStartPage gui = new GUIStartPage();
+		gui.startGUI();
+	}
 
-	public static void main(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException {
+	public static void main2(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException {
 		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
 		HashMap<String, City> cityHashMap = new HashMap<String, City>();
 		App runApp = new App();
