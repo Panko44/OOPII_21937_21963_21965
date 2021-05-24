@@ -234,6 +234,52 @@ public class GUICityPicker {
 //					for(int k = 0; k < 10; k++) {
 //						System.out.println(traveller.getTravellerTermsVector()[k]);
 //					}
+				}else if (travellerAge == "Middle") {
+					MiddleTraveller traveller = new MiddleTraveller();
+					Date date = new Date();
+					traveller.setTimestamp(date.getTime());
+					traveller.setName(nameTextField.getText());
+					traveller.setAge(Integer.parseInt(ageTextField.getText()));
+					tmpGeodesicVector[0] = Double.parseDouble(latitudeTextField.getText());
+					tmpGeodesicVector[1] = Double.parseDouble(longitudeTextField.getText());
+					traveller.setTravellerGeodesicVector(tmpGeodesicVector);
+					tmpTermsVector[0] = slider1.getValue();
+					tmpTermsVector[1] = slider2.getValue();
+					tmpTermsVector[2] = slider3.getValue();
+					tmpTermsVector[3] = slider4.getValue();
+					tmpTermsVector[4] = slider5.getValue();
+					tmpTermsVector[5] = slider6.getValue();
+					tmpTermsVector[6] = slider7.getValue();
+					tmpTermsVector[7] = slider8.getValue();
+					tmpTermsVector[8] = slider9.getValue();
+					tmpTermsVector[9] = slider10.getValue();
+					traveller.setTravellerTermsVector(tmpTermsVector);
+//					for(int k = 0; k < 10; k++) {
+//						System.out.println(traveller.getTravellerTermsVector()[k]);
+//					}
+				}else {
+					ElderTraveller traveller = new ElderTraveller();
+					Date date = new Date();
+					traveller.setTimestamp(date.getTime());
+					traveller.setName(nameTextField.getText());
+					traveller.setAge(Integer.parseInt(ageTextField.getText()));
+					tmpGeodesicVector[0] = Double.parseDouble(latitudeTextField.getText());
+					tmpGeodesicVector[1] = Double.parseDouble(longitudeTextField.getText());
+					traveller.setTravellerGeodesicVector(tmpGeodesicVector);
+					tmpTermsVector[0] = slider1.getValue();
+					tmpTermsVector[1] = slider2.getValue();
+					tmpTermsVector[2] = slider3.getValue();
+					tmpTermsVector[3] = slider4.getValue();
+					tmpTermsVector[4] = slider5.getValue();
+					tmpTermsVector[5] = slider6.getValue();
+					tmpTermsVector[6] = slider7.getValue();
+					tmpTermsVector[7] = slider8.getValue();
+					tmpTermsVector[8] = slider9.getValue();
+					tmpTermsVector[9] = slider10.getValue();
+					traveller.setTravellerTermsVector(tmpTermsVector);
+//					for(int k = 0; k < 10; k++) {
+//						System.out.println(traveller.getTravellerTermsVector()[k]);
+//					}
 				}
 			}
 		});
