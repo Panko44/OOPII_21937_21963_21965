@@ -4,6 +4,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,9 +17,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import exception.WikipediaNoArcticleException;
+import exception.WikipediaNoCityException;
+
 public class GUIStartPage {
 
-	public void startGUI() {
+	public void startGUI(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException  {
 		// start JFrame
 		JFrame startFrame = new JFrame();
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +81,7 @@ public class GUIStartPage {
 		getStartedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUICityPicker cityPickerFrame = new GUICityPicker();
-				cityPickerFrame.cityPickerWindow();
+//				cityPickerFrame.cityPickerWindow(travellerList, cityHashMap);
 			}
 		});
 		getStartedButtonPanel.add(getStartedButton);

@@ -2,7 +2,12 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,9 +19,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import exception.WikipediaNoArcticleException;
+import exception.WikipediaNoCityException;
+
 public class GUICityPicker {
 
-	public void cityPickerWindow() {
+	private String appid = "116427f6e7a5e1872aa0d6ac10c3e2d8";
+
+	public void cityPickerWindow(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException  {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.setTitle("Find your Next Destination");
@@ -70,16 +83,49 @@ public class GUICityPicker {
 		// spacing
 		mainFrame.add(new GUICityPicker().spacing());
 
+		// Simple Message
+		JPanel simpleMessagePanel = new JPanel();
+		JLabel simpleMessageLabel = new JLabel("Help us find out your preferences!");
+		simpleMessagePanel.add(simpleMessageLabel);
+		mainFrame.add(simpleMessagePanel);
+
+		// Preferenced Cities
+		JPanel cityPanel = new JPanel(new GridLayout(1, 4));
+		cityPanel.add(new JLabel("1. City: "));
+		JTextField cityNameTextField = new JTextField("", 15);
+		cityPanel.add(cityNameTextField);
+		cityPanel.add(new JLabel("Country code: "));
+		JTextField countryCodeTextField = new JTextField("", 5);
+		cityPanel.add(countryCodeTextField);
+		mainFrame.add(cityPanel);
+
+		JPanel city2Panel = new JPanel(new GridLayout(1, 4));
+		city2Panel.add(new JLabel("2. City: "));
+		JTextField city2NameTextField = new JTextField("", 15);
+		city2Panel.add(city2NameTextField);
+		city2Panel.add(new JLabel("Country code: "));
+		JTextField country2CodeTextField = new JTextField("", 5);
+		city2Panel.add(country2CodeTextField);
+		mainFrame.add(city2Panel);
+
+		JPanel city3Panel = new JPanel(new GridLayout(1, 4));
+		city3Panel.add(new JLabel("3. City: "));
+		JTextField city3NameTextField = new JTextField("", 15);
+		city3Panel.add(city3NameTextField);
+		city3Panel.add(new JLabel("Country code: "));
+		JTextField country3CodeTextField = new JTextField("", 5);
+		city3Panel.add(country3CodeTextField);
+		mainFrame.add(city3Panel);
+
 		// Terms Vectors Sliders
 		JPanel slidersMessagePanel = new JPanel();
-		JLabel slidersMessageLabel = new JLabel("<HTML>Help us find out your preferences!<br></br>" 
-		+ "Ηow much you'd like the city to have:</HTML>");
+		JLabel slidersMessageLabel = new JLabel("Ηow much you'd like the city to have:");
 		slidersMessagePanel.add(slidersMessageLabel);
 		mainFrame.add(slidersMessagePanel);
-		
+
 		JPanel allSlidersPanel = new JPanel();
 		allSlidersPanel.setLayout(new BoxLayout(allSlidersPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel sliderPanel1 = new JPanel();
 		sliderPanel1.add(new JLabel("Museum"));
 		JSlider slider1 = new JSlider(0, 10, 0);
@@ -90,7 +136,7 @@ public class GUICityPicker {
 		slider1.setPaintLabels(true);
 		sliderPanel1.add(slider1);
 		allSlidersPanel.add(sliderPanel1);
-		
+
 		JPanel sliderPanel2 = new JPanel();
 		sliderPanel2.add(new JLabel("Theatre"));
 		JSlider slider2 = new JSlider(0, 10, 0);
@@ -112,7 +158,7 @@ public class GUICityPicker {
 		slider3.setPaintLabels(true);
 		sliderPanel3.add(slider3);
 		allSlidersPanel.add(sliderPanel3);
-		
+
 		JPanel sliderPanel4 = new JPanel();
 		sliderPanel4.add(new JLabel("Cafe"));
 		JSlider slider4 = new JSlider(0, 10, 0);
@@ -123,7 +169,7 @@ public class GUICityPicker {
 		slider4.setPaintLabels(true);
 		sliderPanel4.add(slider4);
 		allSlidersPanel.add(sliderPanel4);
-		
+
 		JPanel sliderPanel5 = new JPanel();
 		sliderPanel5.add(new JLabel("Mountain"));
 		JSlider slider5 = new JSlider(0, 10, 0);
@@ -134,7 +180,7 @@ public class GUICityPicker {
 		slider5.setPaintLabels(true);
 		sliderPanel5.add(slider5);
 		allSlidersPanel.add(sliderPanel5);
-		
+
 		JPanel sliderPanel6 = new JPanel();
 		sliderPanel6.add(new JLabel("Bar"));
 		JSlider slider6 = new JSlider(0, 10, 0);
@@ -145,7 +191,7 @@ public class GUICityPicker {
 		slider6.setPaintLabels(true);
 		sliderPanel6.add(slider6);
 		allSlidersPanel.add(sliderPanel6);
-		
+
 		JPanel sliderPanel7 = new JPanel();
 		sliderPanel7.add(new JLabel("Cinema"));
 		JSlider slider7 = new JSlider(0, 10, 0);
@@ -156,7 +202,7 @@ public class GUICityPicker {
 		slider7.setPaintLabels(true);
 		sliderPanel7.add(slider7);
 		allSlidersPanel.add(sliderPanel7);
-		
+
 		JPanel sliderPanel8 = new JPanel();
 		sliderPanel8.add(new JLabel("Stadium"));
 		JSlider slider8 = new JSlider(0, 10, 0);
@@ -167,7 +213,7 @@ public class GUICityPicker {
 		slider8.setPaintLabels(true);
 		sliderPanel8.add(slider8);
 		allSlidersPanel.add(sliderPanel8);
-		
+
 		JPanel sliderPanel9 = new JPanel();
 		sliderPanel9.add(new JLabel("Park"));
 		JSlider slider9 = new JSlider(0, 10, 0);
@@ -178,7 +224,7 @@ public class GUICityPicker {
 		slider9.setPaintLabels(true);
 		sliderPanel9.add(slider9);
 		allSlidersPanel.add(sliderPanel9);
-		
+
 		JPanel sliderPanel10 = new JPanel();
 		sliderPanel10.add(new JLabel("Supermarket"));
 		JSlider slider10 = new JSlider(0, 10, 0);
@@ -189,7 +235,7 @@ public class GUICityPicker {
 		slider10.setPaintLabels(true);
 		sliderPanel10.add(slider10);
 		allSlidersPanel.add(sliderPanel10);
-		
+
 		// Scroll Pane on Sliders Panel
 		mainFrame.add(allSlidersPanel);
 		JScrollPane scrollableTextArea = new JScrollPane(allSlidersPanel);
@@ -230,11 +276,8 @@ public class GUICityPicker {
 					tmpTermsVector[8] = slider9.getValue();
 					tmpTermsVector[9] = slider10.getValue();
 					traveller.setTravellerTermsVector(tmpTermsVector);
-					
-//					for(int k = 0; k < 10; k++) {
-//						System.out.println(traveller.getTravellerTermsVector()[k]);
-//					}
-				}else if (travellerAge == "Middle") {
+
+				} else if (travellerAge == "Middle") {
 					MiddleTraveller traveller = new MiddleTraveller();
 					Date date = new Date();
 					traveller.setTimestamp(date.getTime());
@@ -257,7 +300,7 @@ public class GUICityPicker {
 //					for(int k = 0; k < 10; k++) {
 //						System.out.println(traveller.getTravellerTermsVector()[k]);
 //					}
-				}else {
+				} else {
 					ElderTraveller traveller = new ElderTraveller();
 					Date date = new Date();
 					traveller.setTimestamp(date.getTime());
@@ -277,10 +320,26 @@ public class GUICityPicker {
 					tmpTermsVector[8] = slider9.getValue();
 					tmpTermsVector[9] = slider10.getValue();
 					traveller.setTravellerTermsVector(tmpTermsVector);
-//					for(int k = 0; k < 10; k++) {
-//						System.out.println(traveller.getTravellerTermsVector()[k]);
-//					}
 				}
+
+//				// oracleDB connection
+//				OracleDBService dbObject = new OracleDBService();
+//				dbObject.makeJDBCConnection();
+//				
+//				cityHashMap = dbObject.ReadData();
+//				
+//				try {
+//					City city1 = new City();
+//					if (city1.searchCity(cityNameTextField.getText(), cityHashMap) == false) {
+//						city1.setCityValues(cityNameTextField.getText(), countryCodeTextField.getText(), appid);
+//						cityHashMap.put(city1.getName(), city1);
+//						dbObject.addDataToDB(city1.getName(), city1.getCityTermsVector(), city1.getCityGeodesicVector());
+//					}
+//
+//				} catch (WikipediaNoArcticleException e) {
+//					System.out.println(e.getMessage());
+//				}
+
 			}
 		});
 		mainFrame.add(recommendButtonPanel);
@@ -296,5 +355,5 @@ public class GUICityPicker {
 		p.add(l);
 		return (p);
 	}
-	
+
 }
