@@ -70,7 +70,7 @@ public class City implements Comparable<City> {
 	}
     
     
-	public void setCityValues(String city, String country, String appid) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, JsonParseException, JsonMappingException {
+	public void setCityValues(String city, String country, String appid) throws JsonParseException, JsonMappingException, IOException, WikipediaNoArcticleException {
 	    
 		ObjectMapper mapper = new ObjectMapper();
 		

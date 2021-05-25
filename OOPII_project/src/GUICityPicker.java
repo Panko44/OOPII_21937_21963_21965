@@ -29,7 +29,7 @@ public class GUICityPicker {
 
 	private String appid = "116427f6e7a5e1872aa0d6ac10c3e2d8";
 
-	public void cityPickerWindow(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException  {
+	public void cityPickerWindow(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException  {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.setTitle("Find your Next Destination");
@@ -249,7 +249,7 @@ public class GUICityPicker {
 		recommendButton.setText("recommend");
 		recommendButtonPanel.add(recommendButton);
 		recommendButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ae) {
 				rb1.setActionCommand("Young");
 				rb2.setActionCommand("Middle");
 				rb3.setActionCommand("Elder");
@@ -277,6 +277,8 @@ public class GUICityPicker {
 					tmpTermsVector[9] = slider10.getValue();
 					traveller.setTravellerTermsVector(tmpTermsVector);
 
+					travellerList.add(traveller);
+					
 				} else if (travellerAge == "Middle") {
 					MiddleTraveller traveller = new MiddleTraveller();
 					Date date = new Date();
@@ -297,9 +299,8 @@ public class GUICityPicker {
 					tmpTermsVector[8] = slider9.getValue();
 					tmpTermsVector[9] = slider10.getValue();
 					traveller.setTravellerTermsVector(tmpTermsVector);
-//					for(int k = 0; k < 10; k++) {
-//						System.out.println(traveller.getTravellerTermsVector()[k]);
-//					}
+
+					travellerList.add(traveller);
 				} else {
 					ElderTraveller traveller = new ElderTraveller();
 					Date date = new Date();
@@ -320,25 +321,42 @@ public class GUICityPicker {
 					tmpTermsVector[8] = slider9.getValue();
 					tmpTermsVector[9] = slider10.getValue();
 					traveller.setTravellerTermsVector(tmpTermsVector);
+					
+					travellerList.add(traveller);
+				}
+				
+				JacksonFile json = new JacksonFile();
+
+				//Create Travellers examples
+				try {
+
+					json.writeJSON(travellerList);
+
+				} catch (JsonParseException e) {
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 
-//				// oracleDB connection
-//				OracleDBService dbObject = new OracleDBService();
-//				dbObject.makeJDBCConnection();
-//				
-//				cityHashMap = dbObject.ReadData();
-//				
-//				try {
-//					City city1 = new City();
-//					if (city1.searchCity(cityNameTextField.getText(), cityHashMap) == false) {
-//						city1.setCityValues(cityNameTextField.getText(), countryCodeTextField.getText(), appid);
-//						cityHashMap.put(city1.getName(), city1);
-//						dbObject.addDataToDB(city1.getName(), city1.getCityTermsVector(), city1.getCityGeodesicVector());
-//					}
-//
-//				} catch (WikipediaNoArcticleException e) {
-//					System.out.println(e.getMessage());
-//				}
+				// oracleDB connection
+				OracleDBService dbObject = new OracleDBService();
+				dbObject.makeJDBCConnection();
+				
+				try {
+					City city1 = new City();
+					if (city1.searchCity(cityNameTextField.getText(), cityHashMap) == false) {
+						city1.setCityValues(cityNameTextField.getText(), countryCodeTextField.getText(), appid);
+						cityHashMap.put(city1.getName(), city1);
+						dbObject.addDataToDB(city1.getName(), city1.getCityTermsVector(), city1.getCityGeodesicVector());
+					}
+
+				} catch (WikipediaNoArcticleException | IOException e) {
+					System.out.println(e.getMessage());
+				}
+				
+				//TODO CALCULATE BEST CITY
 
 			}
 		});

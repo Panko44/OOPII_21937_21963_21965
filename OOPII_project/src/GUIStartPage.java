@@ -25,7 +25,7 @@ import exception.WikipediaNoCityException;
 
 public class GUIStartPage {
 
-	public void startGUI(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException  {
+	public void startGUI(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException {
 		// start JFrame
 		JFrame startFrame = new JFrame();
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +81,11 @@ public class GUIStartPage {
 		getStartedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUICityPicker cityPickerFrame = new GUICityPicker();
-//				cityPickerFrame.cityPickerWindow(travellerList, cityHashMap);
+				try {
+					cityPickerFrame.cityPickerWindow(travellerList, cityHashMap);
+				} catch (SQLException | IOException | WikipediaNoCityException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		getStartedButtonPanel.add(getStartedButton);

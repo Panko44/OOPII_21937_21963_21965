@@ -11,7 +11,7 @@ public class OracleDBService {
 	static Connection db_con_obj = null;
 	static PreparedStatement db_prep_obj = null;
 
-	static void makeJDBCConnection() {
+	public void makeJDBCConnection() {
 
 		try {// We check that the DB Driver is available in our project.
 			Class.forName("com.mysql.jdbc.Driver"); // This code line is to check that JDBC driver is available. Or else
@@ -82,7 +82,7 @@ public class OracleDBService {
 		return cityHashMap;
 	}
 
-	static void addDataToDB(String City, int[] cityTermsVector, double[] cityGeodesicVector) {
+	public void addDataToDB(String City, int[] cityTermsVector, double[] cityGeodesicVector) {
 
 		try {
 			String insertQueryStatement = "INSERT  INTO  City  VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?)";

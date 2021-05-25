@@ -12,7 +12,7 @@ import exception.WikipediaNoCityException;
 
 public class App {
 	
-	public static void main(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException {
+	public static void main(String[] args) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException {
 		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
 		HashMap<String, City> cityHashMap = new HashMap<String, City>();
 		

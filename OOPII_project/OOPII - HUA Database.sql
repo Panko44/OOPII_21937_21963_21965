@@ -14,6 +14,8 @@ latitude NUMBER,
 longitude NUMBER
 );
 
+commit;
+
 SELECT * FROM CITY;
 
 DROP TABLE City;
