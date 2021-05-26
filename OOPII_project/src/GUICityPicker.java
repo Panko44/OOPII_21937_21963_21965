@@ -119,7 +119,7 @@ public class GUICityPicker {
 
 		// Terms Vectors Sliders
 		JPanel slidersMessagePanel = new JPanel();
-		JLabel slidersMessageLabel = new JLabel("Ηow much you'd like the city to have:");
+		JLabel slidersMessageLabel = new JLabel("How much you'd like the city to have:");
 		slidersMessagePanel.add(slidersMessageLabel);
 		mainFrame.add(slidersMessagePanel);
 
@@ -242,6 +242,10 @@ public class GUICityPicker {
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		mainFrame.getContentPane().add(scrollableTextArea);
 
+		JLabel statusLabel = new JLabel("",JLabel.CENTER);
+		JTextField textField = new JTextField();
+		//textField.setPreferredSize(new Dimension(1000, 80));
+		
 		// Recommend Button with Action Listener
 		JPanel recommendButtonPanel = new JPanel();
 		JButton recommendButton = new JButton();
@@ -356,12 +360,46 @@ public class GUICityPicker {
 					System.out.println(e.getMessage());
 				}
 				
-				//TODO CALCULATE BEST CITY
+				try {
+					City city2 = new City();
+					if (city2.searchCity(cityNameTextField.getText(), cityHashMap) == false) {
+						city2.setCityValues(cityNameTextField.getText(), countryCodeTextField.getText(), appid);
+						cityHashMap.put(city2.getName(), city2);
+						dbObject.addDataToDB(city2.getName(), city2.getCityTermsVector(), city2.getCityGeodesicVector());
+					}
 
+				} catch (WikipediaNoArcticleException | IOException e) {
+					System.out.println(e.getMessage());
+				}
+				
+				try {
+					City city3 = new City();
+					if (city3.searchCity(cityNameTextField.getText(), cityHashMap) == false) {
+						city3.setCityValues(cityNameTextField.getText(), countryCodeTextField.getText(), appid);
+						cityHashMap.put(city3.getName(), city3);
+						dbObject.addDataToDB(city3.getName(), city3.getCityTermsVector(), city3.getCityGeodesicVector());
+					}
+
+				} catch (WikipediaNoArcticleException | IOException e) {
+					System.out.println(e.getMessage());
+				}
+								
+				//Calculate similarity and set Traveller's visit
+				ArrayList<City> citiesToCompare = new ArrayList<City>(cityHashMap.values());
+				
+				City maxSimilarityCity = new City();
+				for(Traveller traveller: travellerList) {
+					maxSimilarityCity = traveller.compareCities(citiesToCompare);
+					traveller.setVisit(maxSimilarityCity.getName());
+				}
+				
+				statusLabel.setText("Recommended city : " + maxSimilarityCity.getName());
 			}
 		});
-		mainFrame.add(recommendButtonPanel);
-
+		
+		mainFrame.add(recommendButtonPanel);	
+		statusLabel.add(textField);
+		mainFrame.add(statusLabel);
 //		mainFrame.setResizable(false);
 		mainFrame.pack();
 

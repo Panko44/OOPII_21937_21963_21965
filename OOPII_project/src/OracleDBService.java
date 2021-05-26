@@ -27,8 +27,8 @@ public class OracleDBService {
 		try {
 			// DriverManager: The basic service for managing a set of JDBC drivers. //We
 			// connect to a DBMS.
-			db_con_obj = DriverManager.getConnection("jdbc:oracle:thin:@oracle12c.hua.gr:1521:orcl", "it21963",
-					"IT21963");// Returns a connection to the URL.
+			db_con_obj = DriverManager.getConnection("jdbc:oracle:thin:@oracle12c.hua.gr:1521:orcl", "it21965",
+					"IT21965");// Returns a connection to the URL.
 			// Attempts to establish a connection to the given database URL. The
 			// DriverManager attempts to select an appropriate driver from the set of
 			// registered JDBC drivers.

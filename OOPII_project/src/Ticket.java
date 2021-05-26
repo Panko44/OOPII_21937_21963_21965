@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Ticket {
 
-	public void freeTicket(City bestCity, ArrayList<Traveller> users) {
+	public Traveller freeTicket(City bestCity, ArrayList<Traveller> users) {
 		double max = 0;
 		double tmp = -1;
 		Traveller t = users.get(0);
@@ -13,8 +13,9 @@ public class Ticket {
 				t = pr1;
 			}
 		}
+		return t;
 		
-		System.out.println("\n\nFree ticket winner to traveller in " + bestCity.getName() + " is: " + t);
+		//System.out.println("\n\nFree ticket winner to traveller in " + bestCity.getName() + " is: " + t);
 	}
 	
 }

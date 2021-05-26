@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -37,18 +41,51 @@ public class GUIStartPage {
 		// JMenuBar
 		JMenuBar menuBar = new JMenuBar();
 
-		JMenu save = new JMenu("Save");
-		menuBar.add(save);
-		// TODO listener
-
-		JMenu load = new JMenu("Load");
-		menuBar.add(load);
-		// TODO listener
 
 		JMenu freeTicket = new JMenu("Free Ticket");
 		menuBar.add(freeTicket);
-		// TODO listener
 
+//		JFrame ticketFrame = new JFrame();
+//		ticketFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		ticketFrame.setTitle("Free ticket winner");
+
+		
+		freeTicket.addMenuListener(new MenuListener() {
+//		  public void actionPerformed(ActionEvent ae) {
+//			  
+//		  }
+
+		@Override
+		public void menuSelected(MenuEvent e) {
+			  Ticket ticket = new Ticket();
+			  Traveller winner = ticket.freeTicket(cityHashMap.get("Moscow"), travellerList);
+			  
+			  JFrame ticketFrame = new JFrame();
+			  ticketFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			  ticketFrame.setTitle("Free ticket winner");
+			  ticketFrame.setSize(500, 200);
+			  
+			  
+			  ticketFrame.setVisible(true);
+			  JLabel statusLabel = new JLabel();
+			  statusLabel.setText("Free ticket winner to traveller in Moscow is: " + winner);
+			  ticketFrame.add(statusLabel);
+			
+		}
+
+		@Override
+		public void menuDeselected(MenuEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void menuCanceled(MenuEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		});
+		
 		JMenu printTrav = new JMenu("Show Travellers");
 		menuBar.add(printTrav);
 

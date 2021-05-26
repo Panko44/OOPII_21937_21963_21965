@@ -16,6 +16,23 @@ public class App {
 		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
 		HashMap<String, City> cityHashMap = new HashMap<String, City>();
 		
+		OracleDBService dbObject = new OracleDBService();
+		dbObject.makeJDBCConnection();
+		cityHashMap = dbObject.ReadData();
+		
+		JacksonFile json = new JacksonFile();
+		try {
+
+			travellerList = json.readJSON();
+
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		GUIStartPage gui = new GUIStartPage();
 		gui.startGUI(travellerList, cityHashMap);
 	}
