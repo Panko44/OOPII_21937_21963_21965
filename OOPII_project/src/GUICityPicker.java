@@ -1,4 +1,7 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,8 +89,19 @@ public class GUICityPicker {
 		// Simple Message
 		JPanel simpleMessagePanel = new JPanel();
 		JLabel simpleMessageLabel = new JLabel("Help us find out your preferences!");
+		simpleMessageLabel.setFont(new Font("HelveticaNeue", Font.BOLD, 14));
+//		simpleMessageLabel.setForeground(Color.white);
+//		simpleMessageLabel.setHorizontalTextPosition(JLabel.CENTER);
+//		simpleMessageLabel.setVerticalTextPosition(JLabel.CENTER);
 		simpleMessagePanel.add(simpleMessageLabel);
 		mainFrame.add(simpleMessagePanel);
+		
+		// Country Preference Message
+		JPanel countryPreferMessagePanel = new JPanel();
+		JLabel countryPreferMessageLabel = new JLabel("✔ Give us 3 Cities you like(and their 2-letter Country code):");
+		countryPreferMessageLabel.setFont(new Font("Lore", Font.BOLD, 12));
+		countryPreferMessagePanel.add(countryPreferMessageLabel);
+		mainFrame.add(countryPreferMessagePanel);
 
 		// Preferenced Cities
 		JPanel cityPanel = new JPanel(new GridLayout(1, 4));
@@ -119,7 +133,8 @@ public class GUICityPicker {
 
 		// Terms Vectors Sliders
 		JPanel slidersMessagePanel = new JPanel();
-		JLabel slidersMessageLabel = new JLabel("How much you'd like the city to have:");
+		JLabel slidersMessageLabel = new JLabel("✔ How much you'd like the city to have:");
+		slidersMessageLabel.setFont(new Font("Lore", Font.BOLD, 12));
 		slidersMessagePanel.add(slidersMessageLabel);
 		mainFrame.add(slidersMessagePanel);
 
@@ -242,8 +257,11 @@ public class GUICityPicker {
 		scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		mainFrame.getContentPane().add(scrollableTextArea);
 
-		JLabel statusLabel = new JLabel("",JLabel.CENTER);
-		JTextField textField = new JTextField();
+		// Recommended City text field
+		JPanel statusPanel = new JPanel();
+		JLabel statusLabel = new JLabel();
+		statusLabel.setFont(new Font("Lore", Font.BOLD, 15));
+		statusLabel.setForeground(Color.red);
 		//textField.setPreferredSize(new Dimension(1000, 80));
 		
 		// Recommend Button with Action Listener
@@ -393,13 +411,14 @@ public class GUICityPicker {
 					traveller.setVisit(maxSimilarityCity.getName());
 				}
 				
-				statusLabel.setText("Recommended city : " + maxSimilarityCity.getName());
+				statusLabel.setText("Here is your next destination: " + maxSimilarityCity.getName().toUpperCase());
 			}
 		});
 		
-		mainFrame.add(recommendButtonPanel);	
-		statusLabel.add(textField);
-		mainFrame.add(statusLabel);
+		mainFrame.add(recommendButtonPanel);
+		statusPanel.add(statusLabel);
+		mainFrame.add(statusPanel);
+		
 //		mainFrame.setResizable(false);
 		mainFrame.pack();
 

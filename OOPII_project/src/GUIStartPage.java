@@ -29,7 +29,8 @@ import exception.WikipediaNoCityException;
 
 public class GUIStartPage {
 
-	public void startGUI(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException {
+	public void startGUI(ArrayList<Traveller> travellerList, HashMap<String, City> cityHashMap)
+			throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException {
 		// start JFrame
 		JFrame startFrame = new JFrame();
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +42,6 @@ public class GUIStartPage {
 		// JMenuBar
 		JMenuBar menuBar = new JMenuBar();
 
-
 		JMenu freeTicket = new JMenu("Free Ticket");
 		menuBar.add(freeTicket);
 
@@ -49,43 +49,63 @@ public class GUIStartPage {
 //		ticketFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 //		ticketFrame.setTitle("Free ticket winner");
 
-		
 		freeTicket.addMenuListener(new MenuListener() {
 //		  public void actionPerformed(ActionEvent ae) {
 //			  
 //		  }
 
-		@Override
-		public void menuSelected(MenuEvent e) {
-			  Ticket ticket = new Ticket();
-			  Traveller winner = ticket.freeTicket(cityHashMap.get("Moscow"), travellerList);
-			  
-			  JFrame ticketFrame = new JFrame();
-			  ticketFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			  ticketFrame.setTitle("Free ticket winner");
-			  ticketFrame.setSize(500, 200);
-			  
-			  
-			  ticketFrame.setVisible(true);
-			  JLabel statusLabel = new JLabel();
-			  statusLabel.setText("Free ticket winner to traveller in Moscow is: " + winner);
-			  ticketFrame.add(statusLabel);
-			
-		}
+			@Override
+			public void menuSelected(MenuEvent e) {
+				Ticket ticket = new Ticket();
+				Traveller winner = ticket.freeTicket(cityHashMap.get("Moscow"), travellerList);
 
-		@Override
-		public void menuDeselected(MenuEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+				JFrame ticketFrame = new JFrame();
+				ticketFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				ticketFrame.setTitle("Free Ticket Winner");
+				ticketFrame.setLayout(new BorderLayout());
+				ticketFrame.setBackground(new Color(3, 39, 100));
+//			  ticketFrame.setSize(500, 200);
 
-		@Override
-		public void menuCanceled(MenuEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+				ImageIcon image = new ImageIcon("winner.png");
+				JLabel imageLabel = new JLabel();
+				imageLabel.setIcon(image);
+				ticketFrame.add(imageLabel, BorderLayout.NORTH);
+
+				ticketFrame.setVisible(true);
+
+				JPanel winnerPanel = new JPanel(new BorderLayout());
+//				winnerPanel.setBackground(new Color(255, 107, 12));
+				JLabel winnerMessageLabel = new JLabel();
+				winnerMessageLabel.setText("Free ticket winner to traveller in Moscow is: ");
+				winnerMessageLabel.setHorizontalAlignment(JLabel.CENTER);
+				winnerMessageLabel.setFont(new Font("Gills San", Font.BOLD, 16));
+				winnerMessageLabel.setForeground(new Color(255, 107, 17));
+				JLabel winnerLabel = new JLabel();
+				winnerLabel.setText("Name : " + winner.getName() + ", age: " + winner.getAge());
+				winnerLabel.setHorizontalAlignment(JLabel.CENTER);
+				winnerLabel.setFont(new Font("Gills San", Font.BOLD, 17));
+				winnerLabel.setForeground(new Color(255, 107, 12));
+				winnerPanel.add(winnerMessageLabel, BorderLayout.NORTH);
+				winnerPanel.add(winnerLabel, BorderLayout.SOUTH);
+				ticketFrame.add(winnerPanel, BorderLayout.SOUTH);
+				
+				ticketFrame.setResizable(false);
+				ticketFrame.pack();
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+
+			}
 		});
-		
+
 		JMenu printTrav = new JMenu("Show Travellers");
 		menuBar.add(printTrav);
 
