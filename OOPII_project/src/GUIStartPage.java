@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -108,6 +109,63 @@ public class GUIStartPage {
 
 		JMenu printTrav = new JMenu("Show Travellers");
 		menuBar.add(printTrav);
+		
+		printTrav.addMenuListener(new MenuListener() {
+
+
+				@Override
+				public void menuSelected(MenuEvent e2) {
+					YoungTraveller trav = new YoungTraveller();
+					LinkedHashMap<String, Traveller> travellerLinkedHashMap = new LinkedHashMap<>();
+					travellerLinkedHashMap = trav.sortTravellers(travellerList);
+
+					JFrame printTravFrame = new JFrame();
+					printTravFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					printTravFrame.setTitle("Clients");
+					printTravFrame.setLayout(new BorderLayout());
+//					printTravFrame.setBackground(new Color(3, 39, 100));
+					printTravFrame.setVisible(true);
+					JPanel printTravPanel = new JPanel();
+					printTravPanel.setLayout(new BoxLayout(printTravPanel, BoxLayout.Y_AXIS));
+					JLabel TravMessageLabel = new JLabel();					
+					TravMessageLabel.setText("TRAVELLERS WITHOUT DUPLICATES ");
+					printTravPanel.add(TravMessageLabel);
+					for (String key : travellerLinkedHashMap.keySet()) {
+						JLabel TravMessageLabel2 = new JLabel();					
+						TravMessageLabel2.setText("Traveller [name: " + key + ", age: " + travellerLinkedHashMap.get(key).getAge() + ", timestamp: " + travellerLinkedHashMap.get(key).getTimestamp() + "]");
+						printTravPanel.add(TravMessageLabel2);
+					}										
+					TravMessageLabel.setHorizontalAlignment(JLabel.CENTER);
+					TravMessageLabel.setFont(new Font("Gills San", Font.BOLD, 16));
+					TravMessageLabel.setForeground(new Color(255, 107, 17));
+					
+					printTravFrame.add(printTravPanel);
+//					JLabel winnerLabel = new JLabel();
+//					winnerLabel.setText("Name : " + winner.getName() + ", age: " + winner.getAge());
+//					winnerLabel.setHorizontalAlignment(JLabel.CENTER);
+//					winnerLabel.setFont(new Font("Gills San", Font.BOLD, 17));
+//					winnerLabel.setForeground(new Color(255, 107, 12));
+//					winnerPanel.add(winnerMessageLabel, BorderLayout.NORTH);
+//					winnerPanel.add(winnerLabel, BorderLayout.SOUTH);
+//					ticketFrame.add(winnerPanel, BorderLayout.SOUTH);
+					
+//					printTravFrame.setResizable(false);
+					printTravFrame.pack();
+				}
+
+				@Override
+				public void menuDeselected(MenuEvent e2) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void menuCanceled(MenuEvent e2) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+	
 
 		startFrame.setJMenuBar(menuBar);
 

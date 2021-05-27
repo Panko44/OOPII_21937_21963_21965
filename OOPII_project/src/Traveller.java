@@ -122,7 +122,7 @@ public abstract class Traveller implements Comparable<Traveller> {
 		return comparedCities;
 	}
 
-	public void sortTravellers(ArrayList<Traveller> travellerList) {
+	public LinkedHashMap<String, Traveller> sortTravellers(ArrayList<Traveller> travellerList) {
 
 		LinkedHashMap<String, Traveller> travellerLinkedHashMap = new LinkedHashMap<>();
 
@@ -132,11 +132,12 @@ public abstract class Traveller implements Comparable<Traveller> {
 			travellerLinkedHashMap.put(traveller.getName(), traveller);
 		}
 
-		System.out.println("\n\nTRAVELLERS WITHOUT DUPLICATES");
-		for (String key : travellerLinkedHashMap.keySet()) {
-            System.out.println("Traveller [name: " + key + ", age: " + travellerLinkedHashMap.get(key).getAge() + ", timestamp: " + travellerLinkedHashMap.get(key).getTimestamp() + "]");
-        }
+//		System.out.println("\n\nTRAVELLERS WITHOUT DUPLICATES");
+//		for (String key : travellerLinkedHashMap.keySet()) {
+//            System.out.println("Traveller [name: " + key + ", age: " + travellerLinkedHashMap.get(key).getAge() + ", timestamp: " + travellerLinkedHashMap.get(key).getTimestamp() + "]");
+//        }
 
+		return travellerLinkedHashMap;
 	}
 
 	@Override
