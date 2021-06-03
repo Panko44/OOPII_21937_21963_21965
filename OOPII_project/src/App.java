@@ -10,21 +10,31 @@ import java.util.Random;
 import exception.WikipediaNoArcticleException;
 import exception.WikipediaNoCityException;
 
-public class App {
+public class App extends Thread{
 	
-	public static void main(String[] args) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException {
-		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
+	public static ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
+	
+	public static void main(String[] args) throws SQLException, JsonParseException, JsonMappingException, IOException, WikipediaNoCityException, InterruptedException {
+		
 		HashMap<String, City> cityHashMap = new HashMap<String, City>();
+		
+		(new App()).start();
 		
 		OracleDBService dbObject = new OracleDBService();
 		dbObject.makeJDBCConnection();
 		cityHashMap = dbObject.ReadData();
 		
+		
+		GUIStartPage gui = new GUIStartPage();
+		gui.startGUI(travellerList, cityHashMap);
+	}
+
+	public void run(){
 		JacksonFile json = new JacksonFile();
 		try {
-
+	
 			travellerList = json.readJSON();
-
+	
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -32,11 +42,7 @@ public class App {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		GUIStartPage gui = new GUIStartPage();
-		gui.startGUI(travellerList, cityHashMap);
 	}
-
 //	public static void main2(String[] args) throws IOException, WikipediaNoArcticleException, WikipediaNoCityException, InterruptedException, SQLException {
 //		ArrayList<Traveller> travellerList = new ArrayList<Traveller>();
 //		HashMap<String, City> cityHashMap = new HashMap<String, City>();

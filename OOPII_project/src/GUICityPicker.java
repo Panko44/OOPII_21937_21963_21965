@@ -8,8 +8,15 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -98,7 +105,7 @@ public class GUICityPicker {
 		
 		// Country Preference Message
 		JPanel countryPreferMessagePanel = new JPanel();
-		JLabel countryPreferMessageLabel = new JLabel("✔ Give us 3 Cities you like(and their 2-letter Country code):");
+		JLabel countryPreferMessageLabel = new JLabel(" Give us 3 Cities you like(and their 2-letter Country code):");
 		countryPreferMessageLabel.setFont(new Font("Lore", Font.BOLD, 12));
 		countryPreferMessagePanel.add(countryPreferMessageLabel);
 		mainFrame.add(countryPreferMessagePanel);
@@ -133,7 +140,7 @@ public class GUICityPicker {
 
 		// Terms Vectors Sliders
 		JPanel slidersMessagePanel = new JPanel();
-		JLabel slidersMessageLabel = new JLabel("✔ How much you'd like the city to have:");
+		JLabel slidersMessageLabel = new JLabel(" How much you'd like the city to have:");
 		slidersMessageLabel.setFont(new Font("Lore", Font.BOLD, 12));
 		slidersMessagePanel.add(slidersMessageLabel);
 		mainFrame.add(slidersMessagePanel);
@@ -264,7 +271,7 @@ public class GUICityPicker {
 		statusLabel.setForeground(Color.red);
 		//textField.setPreferredSize(new Dimension(1000, 80));
 		
-		// Recommend Button with Action Listener
+		// Recommend Button with Action Listener	
 		JPanel recommendButtonPanel = new JPanel();
 		JButton recommendButton = new JButton();
 		recommendButton.setPreferredSize(new Dimension(120, 40));
@@ -272,6 +279,9 @@ public class GUICityPicker {
 		recommendButtonPanel.add(recommendButton);
 		recommendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				
+				Optional<RecommendedCity> recommendedCity = null;
+				
 				rb1.setActionCommand("Young");
 				rb2.setActionCommand("Middle");
 				rb3.setActionCommand("Elder");
@@ -300,7 +310,9 @@ public class GUICityPicker {
 					traveller.setTravellerTermsVector(tmpTermsVector);
 
 					travellerList.add(traveller);
-					
+					if(travellerList.size() > 5) {
+						 recommendedCity = collaborativeFiltering(travellerList, traveller);
+					}
 				} else if (travellerAge == "Middle") {
 					MiddleTraveller traveller = new MiddleTraveller();
 					Date date = new Date();
@@ -323,6 +335,11 @@ public class GUICityPicker {
 					traveller.setTravellerTermsVector(tmpTermsVector);
 
 					travellerList.add(traveller);
+					
+					if(travellerList.size() > 5) {
+						recommendedCity = collaborativeFiltering(travellerList, traveller);
+					}
+					
 				} else {
 					ElderTraveller traveller = new ElderTraveller();
 					Date date = new Date();
@@ -345,6 +362,11 @@ public class GUICityPicker {
 					traveller.setTravellerTermsVector(tmpTermsVector);
 					
 					travellerList.add(traveller);
+					
+					if(travellerList.size() > 5) {
+						 recommendedCity = collaborativeFiltering(travellerList, traveller);
+					}
+					
 				}
 				
 				JacksonFile json = new JacksonFile();
@@ -411,7 +433,8 @@ public class GUICityPicker {
 					traveller.setVisit(maxSimilarityCity.getName());
 				}
 				
-				statusLabel.setText("Here is your next destination: " + maxSimilarityCity.getName().toUpperCase());
+				statusLabel.setText("Here is your next destination: " + maxSimilarityCity.getName().toUpperCase() +"      With collaborative:" + recommendedCity.get().getCity().toUpperCase());
+				//statusLabel2.setText("Here is your next destination: " + recommendedCity.get().getCity());
 			}
 		});
 		
@@ -430,5 +453,34 @@ public class GUICityPicker {
 		p.add(l);
 		return (p);
 	}
+	
+	private static int innerDot(int[] currentTraveller, int[] candidateTraveller) {
+		int sum=0;
+		for (int i=0; i<currentTraveller.length;i++)
+			sum+=currentTraveller[i]*candidateTraveller[i];
+		return sum;
+			
+	}
 
+	private Optional<RecommendedCity> collaborativeFiltering(ArrayList<Traveller> travellerList,Traveller trav ) {	
+		LinkedHashMap<String, Traveller> travellerLinkedHashMap = new LinkedHashMap<>();
+
+		Collections.sort(travellerList);
+
+		for (Traveller traveller : travellerList) {
+			travellerLinkedHashMap.put(traveller.getVisit(), traveller);
+		}
+
+		List<Traveller> travellerList2 = new ArrayList<>(travellerLinkedHashMap.values());
+		
+		Map<String,Integer> cityToRank=travellerList2.stream().collect(Collectors.toMap(i->i.getVisit(),i->innerDot(i.getTravellerTermsVector(),trav.getTravellerTermsVector())));
+		//cityToRank.forEach((k,v)->System.out.println("city:"+k+" rank: "+v));
+			
+		//We print the Traveller who has the highest Rank (similarity) (dot product).
+		Optional<RecommendedCity> recommendedCity=travellerList2.stream().map(i-> new RecommendedCity(i.getVisit(),innerDot(i.getTravellerTermsVector(),trav.getTravellerTermsVector()))).max(Comparator.comparingInt(RecommendedCity::getRank));
+			
+		return recommendedCity;
+		
+	}
+	
 }
